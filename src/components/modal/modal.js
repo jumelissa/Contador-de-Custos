@@ -1,11 +1,13 @@
-import React from 'react';
+import React from 'react'
+import { Modal } from 'react-bootstrap';
 
-const Modal = () => {
+
+
+export default function Modall(props) {
+
     return(
-        <div>
-            <h1>Oi</h1>
-        </div>
+        <Modal>
+            <button onClick={props.handleClose}>fechar</button>
+        </Modal>
     )
 }
-
-export default Modal;

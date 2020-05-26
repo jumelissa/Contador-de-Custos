@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-
+import { Form } from 'react-bootstrap';
 
 export const Containermain = styled.div`
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 
         img {
             width: 130px;
@@ -155,6 +155,17 @@ export const Month = styled.div`
         font-size: 30px;
         color:  #F59324;
         font-weight: bold;
+    }
+`;
+
+export const FormModal = styled(Form)`
+            
+
+    div {
+        cursor: pointer;
+        display: flex;
+        align-self: flex-end;
+        
     }
 `;
 

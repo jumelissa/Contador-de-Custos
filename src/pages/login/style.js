@@ -142,7 +142,10 @@ export const StyledButtonCadastrar = styled(Button)`
 
 `;
 
-
+export const Error = styled.div`
+    color: #DC0F0F;
+    margin-left: 10px;
+`;
 
 
 
