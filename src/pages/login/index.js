@@ -4,6 +4,7 @@ import {Container, StyledInput, StyledButton, StyledChek, Cadastro, StyledInputC
 import logo from '../../assets/image/Caminho 1.jpg';
 import { Form, Col, Row } from 'react-bootstrap';
 
+import Api from '../../services/api';
 
 
 
@@ -28,7 +29,11 @@ export default function Login() {
       setLogin(false)
    }
 
-   function toggleLogin() {
+   async function toggleLogin() {
+      let dados_user = {name: name, email: email, cpf: cpf, rg: rg, password: createPassword, id: 2};
+      let response = await Api.post(`/users`,dados_user);
+      console.log(response);
+
       setLogin(true)
    }
 
@@ -50,15 +55,6 @@ export default function Login() {
        return false;
    }
    
-
-   function buttonLogin() {
-   
-   }
-
-   function validateName(e) {
-     
-   }
-
 
    function validateCpf(cpf) {
       let newValue = cpf 
@@ -88,13 +84,18 @@ export default function Login() {
          }
 
          sum*=10;
+         sum = sum%11;
 
-         if(sum%11 === parseInt(cpfValid[cpfValid.length-1])) {
+         if(sum === 10 || sum === 11) {
+            sum = 0;
+         }
+
+         if(sum === parseInt(cpfValid[cpfValid.length-1])) {
             return true;
          } else {
             return false;
          }
-        
+         
    }
 
    function validateRg(rg) {
@@ -116,6 +117,25 @@ export default function Login() {
       }
 
 
+
+      useEffect(() => {
+
+      }, []);
+
+
+
+
+      async function buttonLogin(e) {
+         e.preventDefault();
+         try {
+            const response = await Api.get(`/users?email=${email}`);
+            console.log(response);
+         } catch(error){
+         
+         }
+      }
+
+
     return(
        <Container>
           <aside></aside>
@@ -126,7 +146,7 @@ export default function Login() {
                   <>
                <h2>Efetue o login</h2>
                <p>Please login to continue using dribbble.</p>
-               <Form>
+               <Form onSubmit={buttonLogin}>
                   <Col>
                      <Row>
                         <StyledInput type="email" value={email} onBlur={(e) => validateEmail(e.target.value)} onChange={(e) => {setEmail(e.target.value)}} placeholder="Email" />
@@ -144,7 +164,7 @@ export default function Login() {
                       </Row>
 
                       <Row>
-                       <StyledButton type="submit" variant="" size="lg" active>Entrar</StyledButton>{' '}
+                       <StyledButton type="submit"  disabled={!email || !password || errorEmail || errorPassword ? true : false} variant="" size="lg" active>Entrar</StyledButton>{' '}
                       </Row>
 
                       <Row>
@@ -165,7 +185,7 @@ export default function Login() {
                           
                            <Col>
                            <Row>
-                              <StyledInputCadastro type="text" value={name} onBlur={(e) => validateName(e.target.value)} onChange={(e) => setName(e.target.value)} placeholder="Nome"/>
+                              <StyledInputCadastro type="text" min-length="3" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome"/>
                               
                            </Row>
 
@@ -176,24 +196,24 @@ export default function Login() {
                            </Col>
 
                               <Row>
-                                 <Col>
+                                 <Col xs={6}>
                                     <StyledInputGroup placeholder="000.000.000-00" name="cpf" value={cpf} required onChange={(e) => validateCpf(e.target.value)}/>
                                     {!checkCpf && <Error>{errorCpf}</Error>}
                                  </Col>
                                 
 
-                                 <Col>
+                                 <Col xs={6}>
                                     <StyledInputGroup placeholder="RG" maxLength="9" name="rg" value={rg} required onChange={(e) => validateRg(e.target.value)}/>
                                  </Col>
                               </Row>
 
                               
                               <Row>
-                                 <Col>
+                                 <Col xs={6}>
                                     <StyledInputGroup type="password" value={createPassword} onChange={(e) => setCreatePassword(e.target.value)} placeholder="Senha" />
                                  </Col>
 
-                                 <Col>
+                                 <Col xs={6}>
                                     <StyledInputGroup type="password" value={confirmPassword} onBlur={(e) => validatePasswords(e.target.value)} onChange={(e) => setConfirmPassword(e.target.value)}placeholder="Repita a senha" />
                                  </Col>
                                  {errorConfirmPassword && <Error>{errorConfirmPassword}</Error>}
@@ -201,7 +221,7 @@ export default function Login() {
 
 
                               <Row>
-                                 <StyledButtonCadastrar variant="" size="lg" active onClick={toggleLogin}>Cadastrar</StyledButtonCadastrar>{''}
+                                 <StyledButtonCadastrar type="submit" variant="" size="lg" active onClick={toggleLogin}>Cadastrar</StyledButtonCadastrar>{''}
                               </Row>
                               
                               

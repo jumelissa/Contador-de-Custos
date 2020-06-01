@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Form } from 'react-bootstrap';
+import { AiFillPlusCircle } from 'react-icons/ai';
 
 export const Containermain = styled.div`
     width: 100%;
@@ -20,7 +21,7 @@ export const Containermain = styled.div`
             width: 20%;
             height : 100vh;
             background: #2C3668;
-            margin-right: 30px;
+            margin-right: 2%;
         }
 
         main {
@@ -33,6 +34,12 @@ export const Containermain = styled.div`
             margin-top: 20px;
             margin-bottom: 20px;
             color: #3A478D;
+        }
+
+        .form-group {
+            padding: 0;
+            margin-bottom: 3vh;
+
         }
 `;
 
@@ -158,14 +165,30 @@ export const Month = styled.div`
     }
 `;
 
+
+
+export const IconOpenModal = styled(AiFillPlusCircle)`
+        cursor: pointer;
+        color: #3A478D;
+        font-size: 30px;
+        margin-top: 3vh;
+`;
+
 export const FormModal = styled(Form)`
-            
+             width: 55vw;
+            height: 60vh;
+            border-radius: 15px;
+            position: relative;
+
+            h5 {
+                text-align: center;
+            }
 
     div {
         cursor: pointer;
-        display: flex;
-        align-self: flex-end;
+        
         
     }
 `;
+
 

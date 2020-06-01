@@ -3,9 +3,9 @@ import image from '../../assets/image/Grupo 10473.png';
 import currencygren from '../../assets/image/rvx2.png';
 import currencyred from '../../assets/image/rve2x.png';
 import person from '../../assets/image/ic_people_24px@2x.png';
-import { Containermain, Line, Dashboard, Received, Costs, Balance, Month, FormModal} from "./style";
+import { Containermain, Line, Dashboard, Received, Costs, Balance, Month, IconOpenModal, FormModal } from "./style";
 import { Col, Row, Modal, FormControl, Form, Button } from 'react-bootstrap';
-import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose, AiFillPlusCircle } from 'react-icons/ai';
 
 
 
@@ -36,14 +36,21 @@ export default function Main() {
                    <aside></aside>
 
                    <main>
-                        <Col>
+                        
                             <Row>
-                                <h4>Data</h4>
+                                <Col xs={2}>
+                            <Form.Group as={Col} controlId="formGridState">
+                            <Form.Control as="select" value="Choose...">
+                            <option>Data</option>
+                            <option>...</option>
+                             </Form.Control>
+                            </Form.Group>
+                                </Col>
                             </Row>
-                        </Col>
+                    
                        
                        <Row>
-                           <Col>
+                           <Col xs={3}>
                                 <Received>
                                     <h5>Recebidos</h5>
                                     <img src={ currencygren } />
@@ -51,7 +58,7 @@ export default function Main() {
                                 </Received>
                                 
                            </Col>
-                           <Col>
+                           <Col xs={3}>
                                 <Costs>
                                     <h5>Custos</h5>
                                     <img src={ currencyred } />
@@ -59,7 +66,7 @@ export default function Main() {
                                 </Costs>
                                 
                            </Col>
-                           <Col>
+                           <Col xs={3}>
                                 <Balance>
                                     <h5>Saldo</h5>
                                     <img src={ currencygren } />
@@ -67,7 +74,7 @@ export default function Main() {
                                 </Balance>
                                 
                            </Col>
-                           <Col>
+                           <Col xs={3}>
                                 <Month>
                                     <h5>Entrada/mês</h5>
                                     <img src={ person } />
@@ -77,30 +84,23 @@ export default function Main() {
                        </Row>
 
                        <Row>
-                           <Col>
+                           <Col xs={11}>
                            <h2>Movimentações</h2>
                            </Col>
-                           <Col>
-                           <button onClick={handleShow}>modal</button>
+
+                           <Col xs={1}>
+                           <IconOpenModal onClick={handleShow}/>
                            </Col>
                        </Row>
                    </main>
                </section>
               <Modal show={show} onHide={handleClose}>
                   <FormModal>
-
-                  <Row>
-                      <Col>
                         <h5>Novos Lançamentos</h5>
-                      </Col>
-                      <Col>
+                      
                       <div>
                         <AiOutlineClose onClick={handleClose}/>
                       </div>
-                            
-                      </Col>
-                  </Row>
-
                       <Row>
                           <Col>
                                 <Form.Control type="text" placeholder="Categoria" />

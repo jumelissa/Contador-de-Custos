@@ -60,14 +60,14 @@ export const Container = styled.div`
 
 export const StyledInput = styled(Form.Control)`
         width: 100%;
-        height: 9vh;
+        height: 7vh;
         margin: 10px;
     
 `;
 
 export const StyledButton = styled(Button)`
         width: 100%;
-        height: 9vh;
+        height: 7vh;
         background-color: #2C3668;
         margin: 10px;
         color: white;
@@ -109,8 +109,9 @@ export const Cadastro = styled.div`
             
 
             Form {
-                width: 47% !important;
+                /* width: 47% !important; */
                 margin: 0 auto !important;
+                
                 
             }
 `;
@@ -118,26 +119,31 @@ export const Cadastro = styled.div`
 
 export const StyledInputCadastro = styled(Form.Control)`
         width: 100%;
-        height: 5vh;
-        margin: 10px;
+        height: 7vh;
+        margin-bottom: 20px;
+
+        .col-6 {
+            padding: 0;
+        }
         
 `;
 
 export const StyledInputGroup = styled(Form.Control)`
-       margin: 10px;
-       width: 150px;
-       height: 5vh;
+       margin-bottom: 20px;
+       /* width: 150px; */
+       height: 7vh;
        
        
 `;
 
 export const StyledButtonCadastrar = styled(Button)`
-        width: 90%;
-        height: 9vh;
+        width: 93%;
+        height: 7vh;
         background-color: #3A478D;
-        margin-left: 20px;
+        display: block;
         color: white;
-        margin-top: 10px;
+        
+        margin-left: 15px;
        
 
 `;
