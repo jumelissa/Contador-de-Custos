@@ -1,20 +1,32 @@
 import styled from 'styled-components';
+import { Modal, Form, Button } from 'react-bootstrap';
+import { AiOutlineClose } from 'react-icons/ai';
 
-export const ContainerModal = styled.div`
-        width: 100vw;
-        height: 100vh;
-        position: relative;
 
-        div {
-            width: 50%;
-            height: 70vh;
-            background: pink;
-            border-radius: 10px;
-        }
 
-        h1 {
-            text-align: center;
-            color: #2C3668;
-        }
+export const Title = styled(Modal.Title)`
+    color: #3A478D;
+    text-align: center;
 
+
+`;
+
+
+export const IconClose = styled(AiOutlineClose )`
+    cursor: pointer;
+    color: #3A478D;
+    font-size: 20px;
+    margin-top: 1vh;
+`;
+
+export const StyledInput = styled(Form.Control)`
+    margin-bottom: 2vh;
+`;
+
+export const StyledButton = styled(Button)`
+    margin-top: 2vh;
+    background-color: #3A478D;
+    border-radius: 5px;
+    width: 6vw;
+    height: 4vh;
 `;

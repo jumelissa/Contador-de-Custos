@@ -3,9 +3,9 @@ import image from '../../assets/image/Grupo 10473.png';
 import currencygren from '../../assets/image/rvx2.png';
 import currencyred from '../../assets/image/rve2x.png';
 import person from '../../assets/image/ic_people_24px@2x.png';
-import { Containermain, Line, Dashboard, Received, Costs, Balance, Month, IconOpenModal, FormModal } from "./style";
-import { Col, Row, Modal, FormControl, Form, Button } from 'react-bootstrap';
-import { AiOutlineClose, AiFillPlusCircle } from 'react-icons/ai';
+import * as S from "./style";
+import { Col, Row, FormControl, Form, Button } from 'react-bootstrap';
+import ModalExpenses from "../../components/modal/modal";
 
 
 
@@ -16,21 +16,22 @@ export default function Main() {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     
 
 
 
     return(
     
-        <Containermain>
+        <S.Containermain>
                 <header>
                     <img src={ image } />
-                    <Line />
+                    <S.Line />
                 </header>
-                <Dashboard>
+                <S.Dashboard>
                     <p>Dashboard</p>
                     <button>Sair</button>
-                </Dashboard>
+                </S.Dashboard>
 
                <section>
                    <aside></aside>
@@ -51,35 +52,35 @@ export default function Main() {
                        
                        <Row>
                            <Col xs={3}>
-                                <Received>
+                                <S.Values border="1px solid #0DC380">
                                     <h5>Recebidos</h5>
                                     <img src={ currencygren } />
-                                    <p>3.000,00</p>
-                                </Received>
+                                    <S.Value color="#0DC380">3.000,00</S.Value>
+                                </S.Values>
                                 
                            </Col>
                            <Col xs={3}>
-                                <Costs>
+                           <S.Values border="1px solid #DC0F0F">
                                     <h5>Custos</h5>
                                     <img src={ currencyred } />
-                                    <p>200,00</p>
-                                </Costs>
+                                    <S.Value color="#DC0F0F">200,00</S.Value>
+                                </S.Values>
                                 
                            </Col>
                            <Col xs={3}>
-                                <Balance>
+                           <S.Values border="1px solid #2612AF">
                                     <h5>Saldo</h5>
                                     <img src={ currencygren } />
-                                    <p>2.800,00</p>
-                                </Balance>
+                                    <S.Value color="#2612AF">2.800,00</S.Value>
+                                </S.Values>
                                 
                            </Col>
                            <Col xs={3}>
-                                <Month>
+                           <S.Values border="1px solid #F59324">
                                     <h5>Entrada/mês</h5>
                                     <img src={ person } />
-                                    <p>90</p>
-                                </Month>
+                                    <S.Value color="#F59324">90</S.Value>
+                                </S.Values>
                            </Col>
                        </Row>
 
@@ -89,47 +90,14 @@ export default function Main() {
                            </Col>
 
                            <Col xs={1}>
-                           <IconOpenModal onClick={handleShow}/>
+                           <S.IconOpenModal onClick={handleShow}/>
                            </Col>
                        </Row>
                    </main>
                </section>
-              <Modal show={show} onHide={handleClose}>
-                  <FormModal>
-                        <h5>Novos Lançamentos</h5>
-                      
-                      <div>
-                        <AiOutlineClose onClick={handleClose}/>
-                      </div>
-                      <Row>
-                          <Col>
-                                <Form.Control type="text" placeholder="Categoria" />
-                          </Col>
-
-                          <Col>
-                                <Form.Control type="text" placeholder="Tipo" />
-                          </Col>
-                      </Row>
-
-                      <Row>
-                          <Col>
-                                <Form.Control type="text" placeholder="Nome" />
-                          </Col>
-
-                          <Col>
-                                <Form.Control type="text" placeholder="Valor" />
-                          </Col>
-                      </Row>
-
-                      <Row>
-                            <Form.Control type="text" placeholder="Descrição" />
-                      </Row>
-                      <Button variant="">Atualizar</Button>{' '}
-                  </FormModal>
-                  
-               
-              </Modal>
-        </Containermain>
+              
+              <ModalExpenses show={show} onHide={handleClose}/>
+        </S.Containermain>
         
     )
 }
