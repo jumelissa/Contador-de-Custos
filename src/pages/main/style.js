@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-
+import { Form } from 'react-bootstrap';
+import { AiFillPlusCircle } from 'react-icons/ai';
 
 export const Containermain = styled.div`
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 
         img {
             width: 130px;
@@ -20,7 +21,7 @@ export const Containermain = styled.div`
             width: 20%;
             height : 100vh;
             background: #2C3668;
-            margin-right: 30px;
+            margin-right: 2%;
         }
 
         main {
@@ -33,6 +34,12 @@ export const Containermain = styled.div`
             margin-top: 20px;
             margin-bottom: 20px;
             color: #3A478D;
+        }
+
+        .form-group {
+            padding: 0;
+            margin-bottom: 3vh;
+
         }
 `;
 
@@ -62,14 +69,15 @@ export const Dashboard = styled.div`
     }
 `;
 
-export const Received = styled.div`
-    width: 220px;
-    height: 100px;
+export const Values = styled.div`
+    width: 15vw;
+    height: 13vh;
     position: relative;
-    border: 1px solid #0DC380;
+    border: ${props => props.border};
     padding: 10px;
     border-radius: 10px;
     color: #979797;
+
 
     img {
         position: absolute;
@@ -79,82 +87,23 @@ export const Received = styled.div`
         height: 15px;
     }
 
-    p {
-        font-size: 30px;
-        color: #0DC380;
-        font-weight: bold;
-    }
 `;
 
-export const Costs = styled.div`
-    width: 220px;
-    height: 100px;
-    position: relative;
-    border: 1px solid #DC0F0F;
-    padding: 10px;
-    border-radius: 10px;
-    color: #979797;
-
-    img {
-        width: 17px;
-        height: 15px;
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-
-    p {
-        font-size: 30px;
-        color: #DC0F0F;
+export const Value = styled.p`
+         font-size: 30px;
+        color: ${props => props.color};
         font-weight: bold;
-    }
 `;
 
-export const Balance = styled.div`
-    width: 220px;
-    height: 100px;
-    position: relative;
-    border: 1px solid #2612AF;
-    padding: 10px;
-    border-radius: 10px;
-    color: #979797;
 
-    img {
-        width: 17px;
-        height: 15px;
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
 
-    p {
+export const IconOpenModal = styled(AiFillPlusCircle)`
+        cursor: pointer;
+        color: #3A478D;
         font-size: 30px;
-        color: #2612AF;
-        font-weight: bold;
-    }
+        margin-top: 3vh;
 `;
 
-export const Month = styled.div`
-    width: 220px;
-    height: 100px;
-    position: relative;
-    border: 1px solid #F59324;
-    padding: 10px;
-    border-radius: 10px;
-    color: #979797;
 
-    img {
-        width: 20px;
-        height: 15px;
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
 
-    p {
-        font-size: 30px;
-        color:  #F59324;
-        font-weight: bold;
-    }
-`;
 

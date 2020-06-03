@@ -1,77 +1,104 @@
-import React from 'react';
+import React, { useState } from 'react';
 import image from '../../assets/image/Grupo 10473.png';
 import currencygren from '../../assets/image/rvx2.png';
 import currencyred from '../../assets/image/rve2x.png';
 import person from '../../assets/image/ic_people_24px@2x.png';
-import { Containermain, Line, Dashboard, Received, Costs, Balance, Month} from "./style";
-import { Col, Row } from 'react-bootstrap';
+import * as S from "./style";
+import { Col, Row, FormControl, Form } from 'react-bootstrap';
+import ModalExpenses from "../../components/modal/modal";
+
+
 
 
 
 export default function Main() {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    
+
+
+
     return(
-        <Containermain>
+    
+        <S.Containermain>
                 <header>
                     <img src={ image } />
-                    <Line />
+                    <S.Line />
                 </header>
-                <Dashboard>
+                <S.Dashboard>
                     <p>Dashboard</p>
                     <button>Sair</button>
-                </Dashboard>
+                </S.Dashboard>
 
                <section>
                    <aside></aside>
 
                    <main>
-                        <Col>
+                        
                             <Row>
-                                <h4>Data</h4>
+                                <Col xs={2}>
+                            <Form.Group as={Col} controlId="formGridState">
+                            <Form.Control as="select" value="Choose...">
+                            <option>Data</option>
+                            <option>...</option>
+                             </Form.Control>
+                            </Form.Group>
+                                </Col>
                             </Row>
-                        </Col>
+                    
                        
                        <Row>
-                           <Col>
-                                <Received>
+                           <Col xs={3}>
+                                <S.Values border="1px solid #0DC380">
                                     <h5>Recebidos</h5>
                                     <img src={ currencygren } />
-                                    <p>3.000,00</p>
-                                </Received>
+                                    <S.Value color="#0DC380">3.000,00</S.Value>
+                                </S.Values>
                                 
                            </Col>
-                           <Col>
-                                <Costs>
+                           <Col xs={3}>
+                           <S.Values border="1px solid #DC0F0F">
                                     <h5>Custos</h5>
                                     <img src={ currencyred } />
-                                    <p>200,00</p>
-                                </Costs>
+                                    <S.Value color="#DC0F0F">200,00</S.Value>
+                                </S.Values>
                                 
                            </Col>
-                           <Col>
-                                <Balance>
+                           <Col xs={3}>
+                           <S.Values border="1px solid #2612AF">
                                     <h5>Saldo</h5>
                                     <img src={ currencygren } />
-                                    <p>2.800,00</p>
-                                </Balance>
+                                    <S.Value color="#2612AF">2.800,00</S.Value>
+                                </S.Values>
                                 
                            </Col>
-                           <Col>
-                                <Month>
+                           <Col xs={3}>
+                           <S.Values border="1px solid #F59324">
                                     <h5>Entrada/mês</h5>
                                     <img src={ person } />
-                                    <p>90</p>
-                                </Month>
+                                    <S.Value color="#F59324">90</S.Value>
+                                </S.Values>
                            </Col>
                        </Row>
 
                        <Row>
-                           <Col>
+                           <Col xs={11}>
                            <h2>Movimentações</h2>
+                           </Col>
+
+                           <Col xs={1}>
+                           <S.IconOpenModal onClick={handleShow}/>
                            </Col>
                        </Row>
                    </main>
                </section>
-        </Containermain>
+              
+              <ModalExpenses show={show} onHide={handleClose}/>
+        </S.Containermain>
+        
     )
 }
 

@@ -1,14 +1,15 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Main from './pages/main/main';
-import Login from './pages/login/index';
+import Main from '../pages/main/main';
+import Login from '../pages/login/index';
+import { PrivateRoute } from './privateRoute';
 
 const Routes = () => {
         return(
             <Router>
                 <Switch>
-                    <Route path="/main"><Main /></Route>
-                    <Route path="/"> <Login /></Route>
+                    <PrivateRoute exact path="/main"> <Main /></PrivateRoute>
+                    <Route exact path="/"><Login /></Route>
                 </Switch>
             </Router>
         )
