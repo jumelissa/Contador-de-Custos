@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
-import {Container, StyledInput, StyledButton, StyledChek, Cadastro, StyledInputCadastro, StyledInputGroup, StyledButtonCadastrar, Error } from "./style";
+import  * as S from "./style";
 import logo from '../../assets/image/Caminho 1.jpg';
 import { Form, Col, Row } from 'react-bootstrap';
 
@@ -22,6 +22,7 @@ export default function Login() {
    const [errorConfirmPassword, setErrorConfirmPassword] = useState("");
    const [checkCpf, setCheckCpf] = useState(false);
    const [errorCpf, setErrorCpf] = useState("");
+   const history = useHistory();
 
    
 
@@ -30,7 +31,19 @@ export default function Login() {
    }
 
    async function toggleLogin() {
-      let dados_user = {name: name, email: email, cpf: cpf, rg: rg, password: createPassword, id: 2};
+      let cpfTratament = "";
+      for (let i = 0; i < cpf.length; i++) {
+           if (cpf[i] !== "." && cpf[i] !== "-") {
+            cpfTratament = cpfTratament + cpf[i];
+           }
+      }
+      let rgTratament = "";
+      for (let i = 0; i < rg.length; i++) {
+         if (rg[i] !== "." ) {
+          rgTratament = rgTratament + rg[i];
+         }
+    }
+      let dados_user = {name: name, email: email, cpf: cpfTratament, rg: rgTratament, password: createPassword, id: 2};
       let response = await Api.post(`/users`,dados_user);
       console.log(response);
 
@@ -129,15 +142,28 @@ export default function Login() {
          e.preventDefault();
          try {
             const response = await Api.get(`/users?email=${email}`);
-            console.log(response);
-         } catch(error){
-         
+            if(response.data != null) {
+               const {id, email, password:apiPassword} = response.data[0]
+               if(apiPassword === password) {
+                  sessionStorage.setItem('users_id', id)
+                  sessionStorage.setItem('users_email', email)
+                  sessionStorage.setItem('id', id)
+
+                  console.log(response);
+                  return history.push("/main");
+                  
+               }
+            } else {
+               console.log("Você não está logado")
+            }
+         } catch(err){
+               console.log(`Ocorreu um erro na consulta ${err}`)
          }
       }
 
 
     return(
-       <Container>
+       <S.Container>
           <aside></aside>
 
           <section>
@@ -146,29 +172,29 @@ export default function Login() {
                   <>
                <h2>Efetue o login</h2>
                <p>Please login to continue using dribbble.</p>
-               <Form onSubmit={buttonLogin}>
+               <Form>
                   <Col>
                      <Row>
-                        <StyledInput type="email" value={email} onBlur={(e) => validateEmail(e.target.value)} onChange={(e) => {setEmail(e.target.value)}} placeholder="Email" />
-                        {errorEmail && <Error>{errorEmail}</Error>}
+                        <S.StyledInput type="email" value={email} onBlur={(e) => validateEmail(e.target.value)} onChange={(e) => {setEmail(e.target.value)}} placeholder="Email" />
+                        {errorEmail && <S.Error>{errorEmail}</S.Error>}
                      </Row>
 
                      <Row>
-                        <StyledInput type="password" value={password} onBlur={(e) => validatePassword(e.target.value)} onChange={(e) => setPassword(e.target.value)}placeholder="Password"/>
-                        {errorPassword && <Error>{errorPassword}</Error>}
+                        <S.StyledInput type="password" value={password} onBlur={(e) => validatePassword(e.target.value)} onChange={(e) => setPassword(e.target.value)}placeholder="Password"/>
+                        {errorPassword && <S.Error>{errorPassword}</S.Error>}
                       </Row>
 
                       <Row>
-                        <StyledChek type="radio" label="lembrar-me" name="formHorizontalRadios" id="formHorizontalRadios3"/>
+                        <S.StyledChek type="radio" label="lembrar-me" name="formHorizontalRadios" id="formHorizontalRadios3"/>
                         <span>Recuperar Senha</span>
                       </Row>
 
                       <Row>
-                       <StyledButton type="submit"  disabled={!email || !password || errorEmail || errorPassword ? true : false} variant="" size="lg" active>Entrar</StyledButton>{' '}
+                       <S.StyledButton onClick={buttonLogin} disabled={!email || !password || errorEmail || errorPassword ? true : false} variant="" size="lg" active>Entrar</S.StyledButton>{' '}
                       </Row>
 
                       <Row>
-                        <StyledButton variant="" size="lg" active onClick={toggleCadastro}>Cadastre-se</StyledButton>{' '}
+                        <S.StyledButton variant="" size="lg" active onClick={toggleCadastro}>Cadastre-se</S.StyledButton>{' '}
                       </Row>
 
                   </Col>
@@ -177,7 +203,7 @@ export default function Login() {
             )}
 
             { !login && (
-                        <Cadastro>
+                        <S.Cadastro>
                            <h2>Cadastre-se</h2>
                            <p>Please login to continue using dribbble.</p>
 
@@ -185,49 +211,49 @@ export default function Login() {
                           
                            <Col>
                            <Row>
-                              <StyledInputCadastro type="text" min-length="3" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome"/>
+                              <S.StyledInputCadastro type="text" min-length="3" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome"/>
                               
                            </Row>
 
                            <Row>
-                            <StyledInputCadastro type="email" value={email} onBlur={(e) => validateEmail(e.target.value)} onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
-                            {errorEmail && <Error>{errorEmail}</Error>}
+                            <S.StyledInputCadastro type="email" value={email} onBlur={(e) => validateEmail(e.target.value)} onChange={(e) => setEmail(e.target.value)} placeholder="Email"/>
+                            {errorEmail && <S.Error>{errorEmail}</S.Error>}
                            </Row>
                            </Col>
 
                               <Row>
                                  <Col xs={6}>
-                                    <StyledInputGroup placeholder="000.000.000-00" name="cpf" value={cpf} required onChange={(e) => validateCpf(e.target.value)}/>
-                                    {!checkCpf && <Error>{errorCpf}</Error>}
+                                    <S.StyledInputGroup placeholder="000.000.000-00" name="cpf" value={cpf} required onChange={(e) => validateCpf(e.target.value)}/>
+                                    {!checkCpf && <S.Error>{errorCpf}</S.Error>}
                                  </Col>
                                 
 
                                  <Col xs={6}>
-                                    <StyledInputGroup placeholder="RG" maxLength="9" name="rg" value={rg} required onChange={(e) => validateRg(e.target.value)}/>
+                                    <S.StyledInputGroup placeholder="RG" maxLength="9" name="rg" value={rg} required onChange={(e) => validateRg(e.target.value)}/>
                                  </Col>
                               </Row>
 
                               
                               <Row>
                                  <Col xs={6}>
-                                    <StyledInputGroup type="password" value={createPassword} onChange={(e) => setCreatePassword(e.target.value)} placeholder="Senha" />
+                                    <S.StyledInputGroup type="password" value={createPassword} onChange={(e) => setCreatePassword(e.target.value)} placeholder="Senha" />
                                  </Col>
 
                                  <Col xs={6}>
-                                    <StyledInputGroup type="password" value={confirmPassword} onBlur={(e) => validatePasswords(e.target.value)} onChange={(e) => setConfirmPassword(e.target.value)}placeholder="Repita a senha" />
+                                    <S.StyledInputGroup type="password" value={confirmPassword} onBlur={(e) => validatePasswords(e.target.value)} onChange={(e) => setConfirmPassword(e.target.value)}placeholder="Repita a senha" />
                                  </Col>
-                                 {errorConfirmPassword && <Error>{errorConfirmPassword}</Error>}
+                                 {errorConfirmPassword && <S.Error>{errorConfirmPassword}</S.Error>}
                               </Row>
 
 
                               <Row>
-                                 <StyledButtonCadastrar type="submit" variant="" size="lg" active onClick={toggleLogin}>Cadastrar</StyledButtonCadastrar>{''}
+                                 <S.StyledButtonCadastrar variant="" size="lg" active onClick={toggleLogin}>Cadastrar</S.StyledButtonCadastrar>{''}
                               </Row>
                               
                               
                            </Form>
       
-                        </Cadastro>
+                        </S.Cadastro>
                
             )
 
@@ -235,7 +261,7 @@ export default function Login() {
             </section>
 
             
-       </Container>
+       </S.Container>
     )
 }
 

@@ -4,7 +4,7 @@ import currencygren from '../../assets/image/rvx2.png';
 import currencyred from '../../assets/image/rve2x.png';
 import person from '../../assets/image/ic_people_24px@2x.png';
 import * as S from "./style";
-import { Col, Row, FormControl, Form, Button } from 'react-bootstrap';
+import { Col, Row, FormControl, Form } from 'react-bootstrap';
 import ModalExpenses from "../../components/modal/modal";
 
 

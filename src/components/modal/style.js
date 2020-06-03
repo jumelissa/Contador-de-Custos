@@ -3,11 +3,27 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { AiOutlineClose } from 'react-icons/ai';
 
 
+export const ContainerModal = styled(Modal)`
+       
+        .modal-content{
+            margin: 0 auto !important;
+            /* width: 50vw !important; */
+            /* height: 60vh !important; */
+            border-radius: 10px;
+            
+        }
+
+        .modal-dialog{
+            max-width: 700px;
+            min-height: 600px;
+            
+        }
+`;
+
 
 export const Title = styled(Modal.Title)`
     color: #3A478D;
     text-align: center;
-
 
 `;
 
@@ -20,7 +36,9 @@ export const IconClose = styled(AiOutlineClose )`
 `;
 
 export const StyledInput = styled(Form.Control)`
-    margin-bottom: 2vh;
+    margin-bottom: 10px;
+    height: 50px;
+
 `;
 
 export const StyledButton = styled(Button)`
@@ -29,4 +47,5 @@ export const StyledButton = styled(Button)`
     border-radius: 5px;
     width: 6vw;
     height: 4vh;
+    margin-left: 4.5vw;
 `;
