@@ -132,7 +132,12 @@ export default function Login() {
 
 
       useEffect(() => {
-
+         const users_id = sessionStorage.getItem('users_id')
+         if(users_id !== null) {
+            return history.push("/main");
+         } else {
+            console.log("Usuário não está logado")
+         }
       }, []);
 
 

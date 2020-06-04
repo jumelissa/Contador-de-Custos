@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import image from '../../assets/image/Grupo 10473.png';
 import currencygren from '../../assets/image/rvx2.png';
 import currencyred from '../../assets/image/rve2x.png';
@@ -6,18 +6,34 @@ import person from '../../assets/image/ic_people_24px@2x.png';
 import * as S from "./style";
 import { Col, Row, FormControl, Form } from 'react-bootstrap';
 import ModalExpenses from "../../components/modal/modal";
+import { useHistory } from 'react-router-dom';
+
 
 
 
 
 
 export default function Main() {
+    const history = useHistory();
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+
+    useEffect(() => {
+        if(sessionStorage.getItem("users_id") === null) {
+            return history.push("/");
+        }
+     }, []);
+
+
     
+function signOut() {
+        sessionStorage.clear()
+        return history.push("/");
+}
+
 
 
 
@@ -30,7 +46,7 @@ export default function Main() {
                 </header>
                 <S.Dashboard>
                     <p>Dashboard</p>
-                    <button>Sair</button>
+                    <button onClick={signOut}>Sair</button>
                 </S.Dashboard>
 
                <section>
