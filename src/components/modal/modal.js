@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Col, Row, Form, Dropdown, DropdownButton, InputGroup} from 'react-bootstrap'
+import React, { useState } from 'react';
+import { Modal, Col, Row, Form } from 'react-bootstrap'
 import { ContainerModal, Title, StyledButton, StyledInput, StyledInputSelect, IconClose, StyledInputCategory, IconButtonCategory, StyledInputTextarea } from './style';
-import { AiFillPlusCircle } from 'react-icons/ai';
 import Api from '../../services/api';
 
 
@@ -39,8 +38,7 @@ export default function ModalExpenses(props) {
             let register = {description: description, amount: amount, user: user, id: (data.data.length + 1)};
             await Api.post(`/billing`, register);
         });
-       
-       
+    
     }
     
 

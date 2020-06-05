@@ -18,8 +18,8 @@ export default function Main() {
     const [dueDate, setDueDate] = useState("");
     const [show, setShow] = useState(false);
     const history = useHistory();
-    const [gastos, setGastos] = useState(0);
-    const [entradas, setEntradas] = useState(0);
+    const [spending, setSpending] = useState(0);
+    const [appetizer, setAppetizer] = useState(0);
    
 
     const handleClose = () => setShow(false);
@@ -32,12 +32,12 @@ export default function Main() {
         } 
 
         Api.get(`/billing`).then((e) => {
-            let n = 0;
+            let total = 0;
             e.data.forEach(e => {
-                 n += parseFloat(e.amount);
+                total += parseFloat(e.amount);
             });
-            setGastos(n);
-            setEntradas(e.data.length);
+            setSpending(total);
+            setAppetizer(e.data.length);
         })
      }, []);
 
@@ -91,7 +91,7 @@ function signOut() {
                            <S.Values border="1px solid #DC0F0F">
                                     <h5>Custos</h5>
                                     <img src={ currencyred } />
-                                <S.Value color="#DC0F0F">{gastos}</S.Value>
+                                <S.Value color="#DC0F0F">{spending}</S.Value>
                                 </S.Values>
                                 
                            </Col>
@@ -107,7 +107,7 @@ function signOut() {
                            <S.Values border="1px solid #F59324">
                                     <h5>Entrada/mês</h5>
                                     <img src={ person } />
-                            <S.Value color="#F59324">{entradas}</S.Value>
+                            <S.Value color="#F59324">{appetizer}</S.Value>
                                 </S.Values>
                            </Col>
                        </Row>
