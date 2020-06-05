@@ -94,6 +94,7 @@ export const IconButtonCategory = styled(AiFillPlusCircle)`
     color: #c2c8d1;
     font-size: 30px;
     cursor: pointer;
+    
 `;
 
 export const StyledInputTextarea = styled(Form.Control)`

@@ -17,6 +17,7 @@ export default function ModalExpenses(props) {
     const [currency, setCurrency] = useState("BRL");
     const [dateCategory, setDateCategory] = useState([]);
     const [buttonCategory, setButtonCategory] = useState(false);
+    const [newCategory, setNewCategory] = useState("");
 
 
     function localStringToNumber( s ){
@@ -41,7 +42,7 @@ export default function ModalExpenses(props) {
       }
 
 
-    async function saveCategory(e) {
+    async function searchCategory(e) {
         setCategory(e.target.value);
         if(e.target.value.length > 2) {
            let res = await Api.get(`/category?title_like=${e.target.value}`)
@@ -52,6 +53,11 @@ export default function ModalExpenses(props) {
                setButtonCategory(false);
            }
         } 
+    }
+
+    async function addCategory() {
+        let response = await Api.get(`/category`)
+        await Api.post(`/category`, {title: category, id: (response.data.length + 1)});
     }
 
 
@@ -67,14 +73,14 @@ export default function ModalExpenses(props) {
                 <Row>
                 <Col xs={6}>
 
-                <StyledInputCategory className="a" list="category" placeholder="Nova Categoria" onChange={saveCategory}/>
+                <StyledInputCategory  list="category" placeholder="Nova Categoria" onChange={searchCategory}/>
                 <datalist id="category">
                     {dateCategory.map((e) => {
                             return <option>{e.title}</option>
                         })}
                     </datalist>
                     {buttonCategory && (
-                            <IconButtonCategory />
+                            <IconButtonCategory onClick={addCategory}/>
                     )}
                     
                 </Col>

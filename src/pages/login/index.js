@@ -42,8 +42,8 @@ export default function Login() {
          if (rg[i] !== "." ) {
           rgTratament = rgTratament + rg[i];
          }
-    }
-      let dados_user = {name: name, email: email, cpf: cpfTratament, rg: rgTratament, password: createPassword, id: 2};
+    } let res = await Api.get(`/users`);
+      let dados_user = {name: name, email: email, cpf: cpfTratament, rg: rgTratament, password: createPassword, id: (res.data.length + 1)};
       let response = await Api.post(`/users`,dados_user);
       console.log(response);
 
