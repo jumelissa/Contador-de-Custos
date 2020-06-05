@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Modal, Form, Button } from 'react-bootstrap';
-import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose, AiFillPlusCircle } from 'react-icons/ai';
 
 
 export const ContainerModal = styled(Modal)`
@@ -14,7 +14,7 @@ export const ContainerModal = styled(Modal)`
         }
 
         .modal-dialog{
-            max-width: 700px;
+            max-width: 800px;
             min-height: 600px;
             
         }
@@ -36,16 +36,78 @@ export const IconClose = styled(AiOutlineClose )`
 `;
 
 export const StyledInput = styled(Form.Control)`
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     height: 50px;
 
 `;
 
+export const StyledInputSelect = styled(Form.Control)`
+    width: 100%;
+    height: 50px;
+    border: 1px solid #ced4da;
+    margin-bottom: 20px;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+            
+        :focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+
+`;
+
+
+export const StyledInputCategory = styled.input`
+    width: 90%;
+    height: 50px;
+    border: 1px solid #ced4da;
+    margin-bottom: 20px;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+
+    :focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+
+`;
+
+
 export const StyledButton = styled(Button)`
     margin-top: 2vh;
     background-color: #3A478D;
+    border: none;
     border-radius: 5px;
-    width: 6vw;
-    height: 4vh;
-    margin-left: 4.5vw;
+    width: 100%;
+    height: 35px;
+    font-size: 17px;
+    
+`;
+
+export const IconButtonCategory = styled(AiFillPlusCircle)`
+    color: #c2c8d1;
+    font-size: 30px;
+    cursor: pointer;
+`;
+
+export const StyledInputTextarea = styled(Form.Control)`
+    width: 100%;
+    height: 180px;
+    border: 1px solid #ced4da;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    
+        :focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
 `;

@@ -7,7 +7,8 @@ import * as S from "./style";
 import { Col, Row, FormControl, Form } from 'react-bootstrap';
 import ModalExpenses from "../../components/modal/modal";
 import { useHistory } from 'react-router-dom';
-
+import Api from '../../services/api';
+import Lista from '../../components/lista/lista';
 
 
 
@@ -108,11 +109,15 @@ function signOut() {
                            <Col xs={1}>
                            <S.IconOpenModal onClick={handleShow}/>
                            </Col>
+                           <Col xs={12}>
+                                <Lista />
+                           </Col>
                        </Row>
                    </main>
                </section>
               
               <ModalExpenses show={show} onHide={handleClose}/>
+              
         </S.Containermain>
         
     )

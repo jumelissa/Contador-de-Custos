@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Col, Row, Form } from 'react-bootstrap'
-import * as S from './style';
+import { Modal, Col, Row, Form, Dropdown, DropdownButton, InputGroup} from 'react-bootstrap'
+import { ContainerModal, Title, StyledButton, StyledInput, StyledInputSelect, IconClose, StyledInputCategory, IconButtonCategory, StyledInputTextarea } from './style';
+import { AiFillPlusCircle } from 'react-icons/ai';
+import Api from '../../services/api';
 
 
 
 
 export default function ModalExpenses(props) {
+    const [title, setTitle] = useState("");
+    const [amount, setAmount] = useState("");
+    const [description, setDescription] = useState("");
+    const [category, setCategory] = useState("");
+    const [type, setType] = useState("");
+    const [dueDate, setDueDate] = useState("");
     const [currency, setCurrency] = useState("BRL");
+    const [dateCategory, setDateCategory] = useState([]);
+    const [buttonCategory, setButtonCategory] = useState(false);
 
 
     function localStringToNumber( s ){
@@ -31,48 +41,72 @@ export default function ModalExpenses(props) {
       }
 
 
+    async function saveCategory(e) {
+        setCategory(e.target.value);
+        if(e.target.value.length > 2) {
+           let res = await Api.get(`/category?title_like=${e.target.value}`)
+           setDateCategory(res.data);
+           if(res.data.length === 0) {
+                setButtonCategory(true);
+           } else {
+               setButtonCategory(false);
+           }
+        } 
+    }
+
+
     return(
-        <S.ContainerModal show={props.show}>
+        <ContainerModal show={props.show}>
              <Modal.Header >
-                <S.Title>Novos Lançamentos</S.Title>
-                <S.IconClose onClick={props.onHide}/>
+                <Title>Novos Lançamentos</Title>
+                <IconClose onClick={props.onHide}/>
             </Modal.Header>
 
             <Modal.Body>
                 <Form>
                 <Row>
                 <Col xs={6}>
-                    <S.StyledInput type="text" placeholder="Nova categoria" />
+
+                <StyledInputCategory className="a" list="category" placeholder="Nova Categoria" onChange={saveCategory}/>
+                <datalist id="category">
+                    {dateCategory.map((e) => {
+                            return <option>{e.title}</option>
+                        })}
+                    </datalist>
+                    {buttonCategory && (
+                            <IconButtonCategory />
+                    )}
+                    
                 </Col>
                 <Col xs={6}>
-                            <Form.Control as="select" value="tipo">
+                            <StyledInputSelect as="select" value="tipo">
                             <option>Tipo</option>
                             <option>Crédito</option>
                             <option>Débito</option>
-                             </Form.Control>  
+                             </StyledInputSelect>  
                 </Col>
                 </Row>
                 <Row>
                     <Col xs={7}>
-                        <S.StyledInput type="text" placeholder="Nome" />
+                        <StyledInput type="text" placeholder="Nome" />
                     </Col>
                     <Col xs={5}>
-                        <S.StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur}/>
+                        <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur}/>
                     </Col>
                     <Col xs={12}>
-                        <Form.Control height="10vh" as="textarea" aria-label="With textarea" placeholder="Descrição"/>
+                        <StyledInputTextarea as="textarea" aria-label="With textarea" placeholder="Descrição"/>
                     </Col>
                 </Row>
                 <Row>
                     <Col xs={9}></Col>
                     <Col xs={3}>
-                        <S.StyledButton variant="primary" size="sm">Cadastrar</S.StyledButton>{' '}
+                        <StyledButton variant="primary" size="sm">Cadastrar</StyledButton>{' '}
                     </Col>
                 </Row>
                 
             </Form>
             </Modal.Body>
 
-        </S.ContainerModal>
+        </ContainerModal>
     )
 }
