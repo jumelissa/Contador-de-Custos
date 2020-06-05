@@ -15,17 +15,30 @@ import Lista from '../../components/lista/lista';
 
 
 export default function Main() {
-    const history = useHistory();
+    const [dueDate, setDueDate] = useState("");
     const [show, setShow] = useState(false);
+    const history = useHistory();
+    const [gastos, setGastos] = useState(0);
+    const [entradas, setEntradas] = useState(0);
+   
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
 
-    useEffect(() => {
+    useEffect( () => {
         if(sessionStorage.getItem("users_id") === null) {
             return history.push("/");
-        }
+        } 
+
+        Api.get(`/billing`).then((e) => {
+            let n = 0;
+            e.data.forEach(e => {
+                 n += parseFloat(e.amount);
+            });
+            setGastos(n);
+            setEntradas(e.data.length);
+        })
      }, []);
 
 
@@ -34,8 +47,6 @@ function signOut() {
         sessionStorage.clear()
         return history.push("/");
 }
-
-
 
 
     return(
@@ -80,7 +91,7 @@ function signOut() {
                            <S.Values border="1px solid #DC0F0F">
                                     <h5>Custos</h5>
                                     <img src={ currencyred } />
-                                    <S.Value color="#DC0F0F">200,00</S.Value>
+                                <S.Value color="#DC0F0F">{gastos}</S.Value>
                                 </S.Values>
                                 
                            </Col>
@@ -96,7 +107,7 @@ function signOut() {
                            <S.Values border="1px solid #F59324">
                                     <h5>Entrada/mês</h5>
                                     <img src={ person } />
-                                    <S.Value color="#F59324">90</S.Value>
+                            <S.Value color="#F59324">{entradas}</S.Value>
                                 </S.Values>
                            </Col>
                        </Row>
@@ -110,13 +121,15 @@ function signOut() {
                            <S.IconOpenModal onClick={handleShow}/>
                            </Col>
                            <Col xs={12}>
-                                <Lista />
+                               
+                            <Lista />
+    
                            </Col>
                        </Row>
                    </main>
                </section>
               
-              <ModalExpenses show={show} onHide={handleClose}/>
+              <ModalExpenses show={show} onHide={handleClose} />
               
         </S.Containermain>
         

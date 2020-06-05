@@ -5,6 +5,7 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 export const Containermain = styled.div`
     width: 100%;
     height: 100%;
+    margin: 0;
 
         img {
             width: 130px;

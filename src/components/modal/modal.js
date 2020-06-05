@@ -8,16 +8,41 @@ import Api from '../../services/api';
 
 
 export default function ModalExpenses(props) {
-    const [title, setTitle] = useState("");
-    const [amount, setAmount] = useState("");
-    const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
-    const [type, setType] = useState("");
-    const [dueDate, setDueDate] = useState("");
-    const [currency, setCurrency] = useState("BRL");
+    const [currency] = useState("BRL");
     const [dateCategory, setDateCategory] = useState([]);
     const [buttonCategory, setButtonCategory] = useState(false);
-    const [newCategory, setNewCategory] = useState("");
+    const [amount, setAmount] = useState("");
+    const [description, setDescription] = useState("");
+    const [user, setUser] = useState("");
+    const [title, setTitle] = useState("");
+    const [type, setType] = useState("");
+
+
+    function updateDescription(e) {
+        setDescription(e.target.value);
+        console.log(e.target.value);
+    }
+    
+    function updateAmount(e) {
+        setAmount(e.target.value);
+        console.log(e.target.value);
+    }
+    
+    function updateUser(e) {
+        setUser(e.target.value);
+        console.log(e.target.value);
+    }
+    
+    async function newRegister() {
+        await Api.get(`/billing`).then(async (data) => {
+            let register = {description: description, amount: amount, user: user, id: (data.data.length + 1)};
+            await Api.post(`/billing`, register);
+        });
+       
+       
+    }
+    
 
 
     function localStringToNumber( s ){
@@ -61,6 +86,8 @@ export default function ModalExpenses(props) {
     }
 
 
+
+
     return(
         <ContainerModal show={props.show}>
              <Modal.Header >
@@ -94,19 +121,19 @@ export default function ModalExpenses(props) {
                 </Row>
                 <Row>
                     <Col xs={7}>
-                        <StyledInput type="text" placeholder="Nome" />
+                        <StyledInput type="text" placeholder="Nome" onChange={updateUser}/>
                     </Col>
                     <Col xs={5}>
-                        <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur}/>
+                        <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur} onChange={updateAmount}/>
                     </Col>
                     <Col xs={12}>
-                        <StyledInputTextarea as="textarea" aria-label="With textarea" placeholder="Descrição"/>
+                        <StyledInputTextarea as="textarea" aria-label="With textarea" placeholder="Descrição" onChange={updateDescription}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col xs={9}></Col>
                     <Col xs={3}>
-                        <StyledButton variant="primary" size="sm">Cadastrar</StyledButton>{' '}
+                        <StyledButton variant="primary" size="sm" onClick={newRegister}>Cadastrar</StyledButton>{' '}
                     </Col>
                 </Row>
                 

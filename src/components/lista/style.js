@@ -16,3 +16,7 @@ export const Line = styled.div`
     height: 1px;
     background: #3A478D;
 `;
+
+export const Items = styled.p`
+    color: #3A478D;
+`;

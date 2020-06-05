@@ -1,8 +1,23 @@
-import React from 'react';
-import { ContainerList, Title, Line } from './style';
+import React, { useEffect, useState } from 'react';
+import { ContainerList, Title, Line, Items } from './style';
 import { Col, Row } from 'react-bootstrap';
+import Api from '../../services/api';
 
 export default function Lista() {
+    const [items, setItems] = useState([]);
+
+    useEffect( () => {
+        
+    Api.get(`/billing`).then((data) => {
+        setItems(data.data);
+    });
+        
+
+     }, []);
+
+
+
+
     return(
         <ContainerList>
             <Row>
@@ -26,26 +41,33 @@ export default function Lista() {
                 </Col>
             </Row>
             <Line />
-            <Row>
-                <Col xs={1}>
-                   <p></p>
-                </Col>
-                <Col  xs={2}>
-                    <p></p>
-                </Col>
-                <Col  xs={3}>
-                    <p></p>
-                </Col>
-                <Col  xs={2}>
-                    <p></p>
-                </Col>
-                <Col  xs={2}>
-                    <p></p>
-                </Col>
-                <Col  xs={2}>
-                    <p></p>
-                </Col>
-            </Row>
+            { items.length > 0 && (items.map((e) => {
+                return (
+                    <Row>
+                    <Col xs={1}>
+                      <Items>{e.id}</Items>
+                    </Col>
+                    <Col  xs={2}>
+                        <Items></Items>
+                    </Col>
+                    <Col  xs={3}>
+                        <Items>{e.description}</Items>
+                    </Col>
+                    <Col  xs={2}>
+                        <Items>{e.amount}</Items>
+                    </Col>
+                    <Col  xs={2}>
+                        <Items></Items>
+                    </Col>
+                    <Col  xs={2}>
+                        <Items>{e.user}</Items>
+                    </Col>
+                </Row>
+                )
+            })
+
+            )}
+           
         </ContainerList>
     )
 }
