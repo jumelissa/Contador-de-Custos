@@ -20,6 +20,7 @@ export default function Main() {
     const history = useHistory();
     const [spending, setSpending] = useState(0);
     const [appetizer, setAppetizer] = useState(0);
+    const [recebidos, setRecebidos] = useState(0);
    
 
     const handleClose = () => setShow(false);
@@ -32,11 +33,13 @@ export default function Main() {
         } 
 
         Api.get(`/billing`).then((e) => {
-            let total = 0;
+            let credito = 0;
+            let debito = 0;
             e.data.forEach(e => {
-                total += parseFloat(e.amount);
+                e.type === "credito" ? credito += parseFloat(e.amount): debito += parseFloat(e.amount);
             });
-            setSpending(total);
+            setSpending(debito);
+            setRecebidos(credito);
             setAppetizer(e.data.length);
         })
      }, []);
@@ -83,7 +86,7 @@ function signOut() {
                                 <S.Values border="1px solid #0DC380">
                                     <h5>Recebidos</h5>
                                     <img src={ currencygren } />
-                                    <S.Value color="#0DC380">3.000,00</S.Value>
+                                    <S.Value color="#0DC380">{recebidos}</S.Value>
                                 </S.Values>
                                 
                            </Col>
@@ -99,7 +102,7 @@ function signOut() {
                            <S.Values border="1px solid #2612AF">
                                     <h5>Saldo</h5>
                                     <img src={ currencygren } />
-                                    <S.Value color="#2612AF">2.800,00</S.Value>
+                                    <S.Value color="#2612AF">{recebidos - spending}</S.Value>
                                 </S.Values>
                                 
                            </Col>

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ContainerList, Title, Line, Items } from './style';
+import { ContainerList, Title, Line, Items, ItemValue } from './style';
 import { Col, Row } from 'react-bootstrap';
 import Api from '../../services/api';
 
 export default function Lista() {
     const [items, setItems] = useState([]);
+   
 
     useEffect( () => {
         
@@ -16,7 +17,7 @@ export default function Lista() {
      }, []);
 
 
-
+    
 
     return(
         <ContainerList>
@@ -48,13 +49,13 @@ export default function Lista() {
                       <Items>{e.id}</Items>
                     </Col>
                     <Col  xs={2}>
-                        <Items></Items>
+                        <Items>{e.type}</Items>
                     </Col>
                     <Col  xs={3}>
                         <Items>{e.description}</Items>
                     </Col>
                     <Col  xs={2}>
-                        <Items>{e.amount}</Items>
+                        <ItemValue credit={e.type === "credito" ? true : false }>{e.type === "credito" ? "" : "-"}{e.amount}</ItemValue>
                     </Col>
                     <Col  xs={2}>
                         <Items></Items>

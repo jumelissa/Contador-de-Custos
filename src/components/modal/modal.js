@@ -14,8 +14,16 @@ export default function ModalExpenses(props) {
     const [amount, setAmount] = useState("");
     const [description, setDescription] = useState("");
     const [user, setUser] = useState("");
-    const [title, setTitle] = useState("");
     const [type, setType] = useState("");
+
+    
+
+
+
+
+    function selectType(e) {
+        setType(e.target.value);
+    }
 
 
     function updateDescription(e) {
@@ -35,7 +43,7 @@ export default function ModalExpenses(props) {
     
     async function newRegister() {
         await Api.get(`/billing`).then(async (data) => {
-            let register = {description: description, amount: amount, user: user, id: (data.data.length + 1)};
+            let register = {type: type, description: description, amount: amount, user: user, id: (data.data.length + 1)};
             await Api.post(`/billing`, register);
         });
     
@@ -110,10 +118,10 @@ export default function ModalExpenses(props) {
                     
                 </Col>
                 <Col xs={6}>
-                            <StyledInputSelect as="select" value="tipo">
+                            <StyledInputSelect as="select" onChange={selectType}>
                             <option>Tipo</option>
-                            <option>Crédito</option>
-                            <option>Débito</option>
+                            <option value="credito">Crédito</option>
+                            <option value="debito">Débito</option>
                              </StyledInputSelect>  
                 </Col>
                 </Row>
@@ -131,7 +139,7 @@ export default function ModalExpenses(props) {
                 <Row>
                     <Col xs={9}></Col>
                     <Col xs={3}>
-                        <StyledButton variant="primary" size="sm" onClick={newRegister}>Cadastrar</StyledButton>{' '}
+                        <StyledButton variant="primary" size="sm" onClick={() => {newRegister(); props.onHide()}}>Cadastrar</StyledButton>{' '}
                     </Col>
                 </Row>
                 

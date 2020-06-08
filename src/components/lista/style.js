@@ -20,3 +20,10 @@ export const Line = styled.div`
 export const Items = styled.p`
     color: #3A478D;
 `;
+
+
+export const ItemValue = styled.p`
+    color: ${props => (props.credit ? "#0DC380" : "#DC0F0F")};
+
+`;
+
