@@ -17,6 +17,14 @@ export default function Lista() {
      }, []);
 
 
+     function maskPrice(valor) {
+        let newValue = `${parseFloat(valor).toFixed(2)}`
+            .replace(/\D/g, "")
+            .replace(/(\d)(\d{2})$/, "$1,$2")
+            .replace(/(?=(\d{3})+(\D))\B/g, ".")
+            return `${newValue}`;
+    
+    }
     
 
     return(
@@ -55,7 +63,7 @@ export default function Lista() {
                         <Items>{e.description}</Items>
                     </Col>
                     <Col  xs={2}>
-                        <ItemValue credit={e.type === "credito" ? true : false }>{e.type === "credito" ? "" : "-"}{e.amount}</ItemValue>
+                        <ItemValue credit={e.type === "credito" ? true : false }>{e.type === "credito" ? "R$ " : "R$ -"}{maskPrice(e.amount)}</ItemValue>
                     </Col>
                     <Col  xs={2}>
                         <Items></Items>
@@ -64,10 +72,12 @@ export default function Lista() {
                         <Items>{e.user}</Items>
                     </Col>
                 </Row>
+                
                 )
             })
 
             )}
+
            
         </ContainerList>
     )

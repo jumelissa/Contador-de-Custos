@@ -18,9 +18,10 @@ export default function Main() {
     const [dueDate, setDueDate] = useState("");
     const [show, setShow] = useState(false);
     const history = useHistory();
-    const [spending, setSpending] = useState(0);
+    const [spending, setSpending] = useState("");
     const [appetizer, setAppetizer] = useState(0);
-    const [recebidos, setRecebidos] = useState(0);
+    const [recebidos, setRecebidos] = useState("");
+    const [balance, setBalance] = useState("");
    
 
     const handleClose = () => setShow(false);
@@ -38,8 +39,10 @@ export default function Main() {
             e.data.forEach(e => {
                 e.type === "credito" ? credito += parseFloat(e.amount): debito += parseFloat(e.amount);
             });
-            setSpending(debito);
-            setRecebidos(credito);
+           
+            setBalance(maskPrice(credito - debito));
+            setSpending(maskPrice(debito));
+            setRecebidos(maskPrice(credito));
             setAppetizer(e.data.length);
         })
      }, []);
@@ -49,6 +52,15 @@ export default function Main() {
 function signOut() {
         sessionStorage.clear()
         return history.push("/");
+}
+
+function maskPrice(valor) {
+    let newValue = `${valor.toFixed(2)}`
+        .replace(/\D/g, "")
+        .replace(/(\d)(\d{2})$/, "$1,$2")
+        .replace(/(?=(\d{3})+(\D))\B/g, ".")
+        return `R$ ${newValue}`;
+
 }
 
 
@@ -102,7 +114,7 @@ function signOut() {
                            <S.Values border="1px solid #2612AF">
                                     <h5>Saldo</h5>
                                     <img src={ currencygren } />
-                                    <S.Value color="#2612AF">{recebidos - spending}</S.Value>
+                                    <S.Value color="#2612AF">{balance}</S.Value>
                                 </S.Values>
                                 
                            </Col>

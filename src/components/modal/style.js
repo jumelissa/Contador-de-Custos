@@ -67,6 +67,7 @@ export const StyledInputCategory = styled.input`
     margin-bottom: 20px;
     padding: .375rem .75rem;
     border-radius: .25rem;
+    
 
     :focus {
             color: #495057;
@@ -94,6 +95,11 @@ export const IconButtonCategory = styled(AiFillPlusCircle)`
     color: #c2c8d1;
     font-size: 30px;
     cursor: pointer;
+    position: absolute !important;
+    z-index: 100000 !important;
+    left: 295px !important;
+    top: 10px !important;
+    
     
 `;
 
@@ -111,4 +117,8 @@ export const StyledInputTextarea = styled(Form.Control)`
             outline: 0;
             box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
         }
+`;
+
+export const InputCategoryButton = styled.div`
+    position: relative;
 `;

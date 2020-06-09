@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Col, Row, Form } from 'react-bootstrap'
-import { ContainerModal, Title, StyledButton, StyledInput, StyledInputSelect, IconClose, StyledInputCategory, IconButtonCategory, StyledInputTextarea } from './style';
+import { ContainerModal, Title, StyledButton, StyledInput, StyledInputSelect, IconClose, StyledInputCategory, IconButtonCategory, StyledInputTextarea, InputCategoryButton } from './style';
 import Api from '../../services/api';
 
 
@@ -106,6 +106,7 @@ export default function ModalExpenses(props) {
                 <Row>
                 <Col xs={6}>
 
+                <InputCategoryButton>
                 <StyledInputCategory  list="category" placeholder="Nova Categoria" onChange={searchCategory}/>
                 <datalist id="category">
                     {dateCategory.map((e) => {
@@ -115,7 +116,7 @@ export default function ModalExpenses(props) {
                     {buttonCategory && (
                             <IconButtonCategory onClick={addCategory}/>
                     )}
-                    
+                    </InputCategoryButton>
                 </Col>
                 <Col xs={6}>
                             <StyledInputSelect as="select" onChange={selectType}>
