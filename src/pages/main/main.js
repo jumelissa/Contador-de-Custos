@@ -15,13 +15,13 @@ import Lista from '../../components/lista/lista';
 
 
 export default function Main() {
-    const [dueDate, setDueDate] = useState("");
     const [show, setShow] = useState(false);
     const history = useHistory();
     const [spending, setSpending] = useState("");
     const [appetizer, setAppetizer] = useState(0);
     const [recebidos, setRecebidos] = useState("");
     const [balance, setBalance] = useState("");
+    const [modalData, setModalData] = useState({});
    
 
     const handleClose = () => setShow(false);
@@ -46,6 +46,13 @@ export default function Main() {
             setAppetizer(e.data.length);
         })
      }, []);
+
+     async function edition(id) {
+        let edit = await Api.get(`/billing?id=${id}`);
+        edit = edit.data[0]
+        await setModalData(edit);
+        
+     }
 
 
     
@@ -137,14 +144,14 @@ function maskPrice(valor) {
                            </Col>
                            <Col xs={12}>
                                
-                            <Lista />
+                            <Lista handleShow={handleShow} edition={edition} />
     
                            </Col>
                        </Row>
                    </main>
                </section>
               
-              <ModalExpenses show={show} onHide={handleClose} />
+              <ModalExpenses show={show} onHide={handleClose} data={modalData}/>
               
         </S.Containermain>
         

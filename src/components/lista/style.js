@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { FiEdit2 } from 'react-icons/fi';
 
 
 export const ContainerList = styled.div`
@@ -26,4 +28,18 @@ export const ItemValue = styled.p`
     color: ${props => (props.credit ? "#0DC380" : "#DC0F0F")};
 
 `;
+
+export const IconEdit = styled(FiEdit2)`
+    margin: 16px;
+    color: #3A478D;
+    cursor: pointer;
+
+`;
+
+export const IconDelete = styled(RiDeleteBin6Line)`
+      color: #3A478D;
+      cursor: pointer;
+     
+`;
+
 

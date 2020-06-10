@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Col, Row, Form } from 'react-bootstrap'
 import { ContainerModal, Title, StyledButton, StyledInput, StyledInputSelect, IconClose, StyledInputCategory, IconButtonCategory, StyledInputTextarea, InputCategoryButton } from './style';
 import Api from '../../services/api';
@@ -15,9 +15,14 @@ export default function ModalExpenses(props) {
     const [description, setDescription] = useState("");
     const [user, setUser] = useState("");
     const [type, setType] = useState("");
+    const [date, setDate] = useState("");
 
     
 
+    useEffect( () => {
+       console.log(props.editId)
+        
+     }, []);
 
 
 
@@ -41,9 +46,20 @@ export default function ModalExpenses(props) {
         console.log(e.target.value);
     }
     
+    function updateDate(valor) {
+        let newValue = valor
+        .replace(/\D/, "")
+        .replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3")
+        .replace(/(\/\d{4})\d+?$/, "$1");
+      setDate(newValue);
+    
+    }
+  
+
+
     async function newRegister() {
         await Api.get(`/billing`).then(async (data) => {
-            let register = {type: type, description: description, amount: amount, user: user, id: (data.data.length + 1)};
+            let register = {type: type, description: description, amount: amount, user: user, date: date, id: (data.data.length + 1)};
             await Api.post(`/billing`, register);
         });
     
@@ -107,7 +123,7 @@ export default function ModalExpenses(props) {
                 <Col xs={6}>
 
                 <InputCategoryButton>
-                <StyledInputCategory  list="category" placeholder="Nova Categoria" onChange={searchCategory}/>
+                <StyledInputCategory  list="category" placeholder="Nova Categoria" value={props.data.category} onChange={searchCategory}/>
                 <datalist id="category">
                     {dateCategory.map((e) => {
                             return <option>{e.title}</option>
@@ -120,21 +136,29 @@ export default function ModalExpenses(props) {
                 </Col>
                 <Col xs={6}>
                             <StyledInputSelect as="select" onChange={selectType}>
-                            <option>Tipo</option>
+                            <option value={props.data.type}>Tipo</option>
                             <option value="credito">Crédito</option>
                             <option value="debito">Débito</option>
                              </StyledInputSelect>  
                 </Col>
                 </Row>
                 <Row>
-                    <Col xs={7}>
-                        <StyledInput type="text" placeholder="Nome" onChange={updateUser}/>
-                    </Col>
-                    <Col xs={5}>
-                        <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur} onChange={updateAmount}/>
-                    </Col>
                     <Col xs={12}>
-                        <StyledInputTextarea as="textarea" aria-label="With textarea" placeholder="Descrição" onChange={updateDescription}/>
+                    <StyledInput type="text" placeholder="Nome" value={props.data.user} onChange={updateUser} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={6}>
+                        <StyledInput type="text" value={date} placeholder="data" value={props.data.date} onChange={(e) => updateDate(e.target.value)} />
+                    </Col>
+                    <Col xs={6}>
+                        <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur} value={props.data.amount} onChange={updateAmount}/>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col xs={12}>
+                        <StyledInputTextarea as="textarea" aria-label="With textarea" placeholder="Descrição" value={props.data.description} onChange={updateDescription}/>
                     </Col>
                 </Row>
                 <Row>

@@ -48,6 +48,7 @@ export const StyledInputSelect = styled(Form.Control)`
     margin-bottom: 20px;
     padding: .375rem .75rem;
     border-radius: .25rem;
+    color: gray;
             
         :focus {
             color: #495057;
@@ -61,7 +62,7 @@ export const StyledInputSelect = styled(Form.Control)`
 
 
 export const StyledInputCategory = styled.input`
-    width: 90%;
+    width: 100%;
     height: 50px;
     border: 1px solid #ced4da;
     margin-bottom: 20px;
@@ -97,7 +98,7 @@ export const IconButtonCategory = styled(AiFillPlusCircle)`
     cursor: pointer;
     position: absolute !important;
     z-index: 100000 !important;
-    left: 295px !important;
+    left: 328px !important;
     top: 10px !important;
     
     
@@ -109,6 +110,7 @@ export const StyledInputTextarea = styled(Form.Control)`
     border: 1px solid #ced4da;
     padding: .375rem .75rem;
     border-radius: .25rem;
+    resize: none;
     
         :focus {
             color: #495057;
