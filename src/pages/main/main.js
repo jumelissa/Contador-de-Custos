@@ -25,8 +25,11 @@ export default function Main() {
     
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+   
+    function handleShow() {
+        setModalData("");
+        setShow(true);
+    }
    
 
 
@@ -53,6 +56,7 @@ export default function Main() {
         let edit = await Api.get(`/billing?id=${id}`);
         edit = edit.data[0]
         await setModalData(edit);
+        
         
      }
 

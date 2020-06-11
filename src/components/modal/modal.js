@@ -58,7 +58,7 @@ export default function ModalExpenses(props) {
 
     async function newRegister() {
         await Api.get(`/billing`).then(async (data) => {
-            let register = {type: type, description: description, amount: amount, user: user, date: date, id: (data.data.length + 1)};
+            let register = {type: type, description: description, amount: amount, user: user, date: date,category: category, id: (data.data.length + 1)};
             await Api.post(`/billing`, register);
         });
     
@@ -136,9 +136,9 @@ export default function ModalExpenses(props) {
                 </Col>
                 <Col xs={6}>
                             <StyledInputSelect as="select" onChange={selectType}>
-                            <option value={props.data.type}>Tipo</option>
-                            <option value="credito">Crédito</option>
-                            <option value="debito">Débito</option>
+                            <option>Tipo</option>
+                            <option selected={props.data.type === "credito" ? "selected" : false} value="credito">Crédito</option>
+                            <option selected={props.data.type === "debito" ? "selected" : false}value="debito">Débito</option>
                              </StyledInputSelect>  
                 </Col>
                 </Row>
