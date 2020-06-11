@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ContainerList, Title, Line, Items, ItemValue, IconEdit, IconDelete } from './style';
+import { ContainerList, Title, Line, Items, ItemValue, IconEdit, IconDelete, RowColor } from './style';
 import { Col, Row } from 'react-bootstrap';
 import Api from '../../services/api';
 
 
 export default function Lista(props) {
     const [items, setItems] = useState([]);
-
+   
    
     useEffect( () => {
         
@@ -25,6 +25,11 @@ export default function Lista(props) {
             .replace(/(?=(\d{3})+(\D))\B/g, ".")
             return `${newValue}`;
     
+    }
+
+    async function deleteBilling(id) {
+          await Api.delete(`/billing/${id}`);
+        console.log(id);
     }
     
 
@@ -49,9 +54,9 @@ export default function Lista(props) {
                 <Col xs={1}></Col>
             </Row>
             <Line />
-            { items.length > 0 && (items.map((e) => {
+            { items.length > 0 && (items.map((e,i) => {
                 return (
-                    <Row>
+                    <RowColor backgroundLine={i % 2 === 0}>
                     <Col  xs={2}>
                         <Items>{e.type}</Items>
                     </Col>
@@ -69,9 +74,9 @@ export default function Lista(props) {
                     </Col>
                    <Col xs={1}>
                         <IconEdit onClick={() => {props.handleShow(); props.edition(e.id)}}/>
-                        <IconDelete />
+                        <IconDelete onClick={() => {deleteBilling(e.id)}}/>
                    </Col>
-                </Row>
+                </RowColor>
                 
                 )
             })

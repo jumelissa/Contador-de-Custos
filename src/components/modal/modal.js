@@ -21,10 +21,9 @@ export default function ModalExpenses(props) {
 
     useEffect( () => {
        console.log(props.editId)
-        
      }, []);
 
-
+    
 
     function selectType(e) {
         setType(e.target.value);
@@ -105,6 +104,7 @@ export default function ModalExpenses(props) {
     async function addCategory() {
         let response = await Api.get(`/category`)
         await Api.post(`/category`, {title: category, id: (response.data.length + 1)});
+        setButtonCategory(false);
     }
 
 
@@ -149,7 +149,7 @@ export default function ModalExpenses(props) {
                 </Row>
                 <Row>
                     <Col xs={6}>
-                        <StyledInput type="text" value={date} placeholder="data" value={props.data.date} onChange={(e) => updateDate(e.target.value)} />
+                        <StyledInput type="text" value={date} placeholder="data" onChange={(e) => updateDate(e.target.value)} />
                     </Col>
                     <Col xs={6}>
                         <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur} value={props.data.amount} onChange={updateAmount}/>

@@ -22,10 +22,12 @@ export default function Main() {
     const [recebidos, setRecebidos] = useState("");
     const [balance, setBalance] = useState("");
     const [modalData, setModalData] = useState({});
-   
+    
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+   
 
 
     useEffect( () => {
@@ -151,7 +153,7 @@ function maskPrice(valor) {
                    </main>
                </section>
               
-              <ModalExpenses show={show} onHide={handleClose} data={modalData}/>
+              <ModalExpenses show={show} onHide={handleClose} data={modalData} />
               
         </S.Containermain>
         

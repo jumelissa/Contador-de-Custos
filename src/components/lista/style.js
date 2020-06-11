@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { FiEdit2 } from 'react-icons/fi';
+import { Row } from 'react-bootstrap';
 
 
 export const ContainerList = styled.div`
@@ -40,6 +41,10 @@ export const IconDelete = styled(RiDeleteBin6Line)`
       color: #3A478D;
       cursor: pointer;
      
+`;
+
+export const RowColor = styled(Row)`
+    background-color: ${props => (props.backgroundLine ? "white" : "#E2E6EA")};
 `;
 
 
