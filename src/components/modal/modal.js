@@ -16,12 +16,17 @@ export default function ModalExpenses(props) {
     const [user, setUser] = useState("");
     const [type, setType] = useState("");
     const [date, setDate] = useState("");
+    const [selectEdit, setSelectEdit] = ("");
 
     
 
     useEffect( () => {
-       console.log(props.editId)
-     }, []);
+        setDescription(props.data.description);
+        setAmount(props.data.amount);
+        setUser(props.data.user);
+        setCategory(props.data.category);
+
+     }, [props.data]);
 
     
 
@@ -54,13 +59,29 @@ export default function ModalExpenses(props) {
     
     }
   
+    async function editionBilling(id) {
+        if(type === "") {
+            let edit = {category: category, description: description, amount: amount, date: date, user: user,type: id.type, id: id}
+            await Api.put(`/billing/${id.id}`, edit);
+        } else {
+            let edit = {category: category, description: description, amount: amount, date: date, user: user,type: type, id: id}
+            await Api.put(`/billing/${id.id}`, edit);
+        }
+       
 
+}
 
     async function newRegister() {
-        await Api.get(`/billing`).then(async (data) => {
-            let register = {type: type, description: description, amount: amount, user: user, date: date,category: category, id: (data.data.length + 1)};
-            await Api.post(`/billing`, register);
-        });
+        if(props.data === undefined) {
+            await Api.get(`/billing`).then(async (data) => {
+                let register = {type: type, description: description, amount: amount, user: user, date: date,category: category, id: (data.data.length + 1)};
+                await Api.post(`/billing`, register);
+                
+            });
+        } else {
+            editionBilling(props.data)
+        }
+       
     
     }
     
@@ -123,7 +144,7 @@ export default function ModalExpenses(props) {
                 <Col xs={6}>
 
                 <InputCategoryButton>
-                <StyledInputCategory  list="category" placeholder="Nova Categoria" value={props.data.category} onChange={searchCategory}/>
+                <StyledInputCategory  list="category" placeholder="Nova Categoria" value={category} onChange={searchCategory}/>
                 <datalist id="category">
                     {dateCategory.map((e) => {
                             return <option>{e.title}</option>
@@ -138,13 +159,13 @@ export default function ModalExpenses(props) {
                             <StyledInputSelect as="select" onChange={selectType}>
                             <option>Tipo</option>
                             <option selected={props.data.type === "credito" ? "selected" : false} value="credito">Crédito</option>
-                            <option selected={props.data.type === "debito" ? "selected" : false}value="debito">Débito</option>
+                            <option selected={props.data.type === "debito" ? "selected" : false} value="debito">Débito</option>
                              </StyledInputSelect>  
                 </Col>
                 </Row>
                 <Row>
                     <Col xs={12}>
-                    <StyledInput type="text" placeholder="Nome" value={props.data.user} onChange={updateUser} />
+                    <StyledInput type="text" placeholder="Nome" value={user} onChange={updateUser} />
                     </Col>
                 </Row>
                 <Row>
@@ -152,18 +173,19 @@ export default function ModalExpenses(props) {
                         <StyledInput type="text" value={date} placeholder="data" onChange={(e) => updateDate(e.target.value)} />
                     </Col>
                     <Col xs={6}>
-                        <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur} value={props.data.amount} onChange={updateAmount}/>
+                        <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur} value={amount} onChange={updateAmount}/>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col xs={12}>
-                        <StyledInputTextarea as="textarea" aria-label="With textarea" placeholder="Descrição" value={props.data.description} onChange={updateDescription}/>
+                        <StyledInputTextarea as="textarea" aria-label="With textarea" placeholder="Descrição" value={description} onChange={updateDescription}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col xs={9}></Col>
                     <Col xs={3}>
+                        <input type="hidden"/>
                         <StyledButton variant="primary" size="sm" onClick={() => {newRegister(); props.onHide()}}>Cadastrar</StyledButton>{' '}
                     </Col>
                 </Row>

@@ -57,7 +57,6 @@ export default function Main() {
         edit = edit.data[0]
         await setModalData(edit);
         
-        
      }
 
 
@@ -72,7 +71,7 @@ function maskPrice(valor) {
         .replace(/\D/g, "")
         .replace(/(\d)(\d{2})$/, "$1,$2")
         .replace(/(?=(\d{3})+(\D))\B/g, ".")
-        return `R$ ${newValue}`;
+        return `${newValue}`;
 
 }
 

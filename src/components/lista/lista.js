@@ -56,7 +56,7 @@ export default function Lista(props) {
             <Line />
             { items.length > 0 && (items.map((e,i) => {
                 return (
-                    <RowColor backgroundLine={i % 2 === 0}>
+                    <RowColor xs={1} backgroundLine={i % 2 === 0}>
                     <Col  xs={2}>
                         <Items>{e.type}</Items>
                     </Col>
