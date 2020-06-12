@@ -148,11 +148,12 @@ export default function Login() {
          try {
             const response = await Api.get(`/users?email=${email}`);
             if(response.data != null) {
-               const {id, email, password:apiPassword} = response.data[0]
+               const {id, name, email, password:apiPassword} = response.data[0]
                if(apiPassword === password) {
                   sessionStorage.setItem('users_id', id)
                   sessionStorage.setItem('users_email', email)
                   sessionStorage.setItem('id', id)
+                  sessionStorage.setItem(`user_name`, name)
 
                   console.log(response);
                   return history.push("/main");

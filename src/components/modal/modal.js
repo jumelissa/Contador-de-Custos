@@ -16,7 +16,7 @@ export default function ModalExpenses(props) {
     const [user, setUser] = useState("");
     const [type, setType] = useState("");
     const [date, setDate] = useState("");
-    const [selectEdit, setSelectEdit] = ("");
+   
 
     
 

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import image from '../../assets/image/Grupo 10473.png';
-import currencygren from '../../assets/image/rvx2.png';
-import currencyred from '../../assets/image/rve2x.png';
+import photouser from '../../assets/image/photouser.jpeg';
 import person from '../../assets/image/ic_people_24px@2x.png';
 import * as S from "./style";
-import { Col, Row, FormControl, Form } from 'react-bootstrap';
+import { Col, Row, Form } from 'react-bootstrap';
 import ModalExpenses from "../../components/modal/modal";
 import { useHistory } from 'react-router-dom';
 import Api from '../../services/api';
 import Lista from '../../components/lista/lista';
+
 
 
 
@@ -81,11 +81,13 @@ function maskPrice(valor) {
         <S.Containermain>
                 <header>
                     <img src={ image } />
-                    <S.Line />
+                    <S.welcomeUser>Olá, {sessionStorage.getItem(`user_name`) || "visitante"}</S.welcomeUser>
+                    <S.PhotoUser src={ photouser } />
+                    <S.IconLogout onClick={signOut}/>
                 </header>
+                <S.Line />
                 <S.Dashboard>
                     <p>Dashboard</p>
-                    <button onClick={signOut}>Sair</button>
                 </S.Dashboard>
 
                <section>
@@ -109,7 +111,10 @@ function maskPrice(valor) {
                            <Col xs={3}>
                                 <S.Values border="1px solid #0DC380">
                                     <h5>Recebidos</h5>
-                                    <img src={ currencygren } />
+                                    <div>
+                                    <S.Currency color="#0DC380">R$</S.Currency>
+                                    <S.IconArrowUp color="#0DC380"/>
+                                    </div>
                                     <S.Value color="#0DC380">{recebidos}</S.Value>
                                 </S.Values>
                                 
@@ -117,7 +122,10 @@ function maskPrice(valor) {
                            <Col xs={3}>
                            <S.Values border="1px solid #DC0F0F">
                                     <h5>Custos</h5>
-                                    <img src={ currencyred } />
+                                    <div>
+                                    <S.Currency color="#DC0F0F">R$</S.Currency>
+                                    <S.IconArrowDown color="#DC0F0F"/>
+                                    </div>
                                 <S.Value color="#DC0F0F">{spending}</S.Value>
                                 </S.Values>
                                 
@@ -125,7 +133,10 @@ function maskPrice(valor) {
                            <Col xs={3}>
                            <S.Values border="1px solid #2612AF">
                                     <h5>Saldo</h5>
-                                    <img src={ currencygren } />
+                                    <div>
+                                    <S.Currency color="#0DC380">R$</S.Currency>
+                                    <S.IconArrowUp color="#0DC380"/>
+                                    </div>
                                     <S.Value color="#2612AF">{balance}</S.Value>
                                 </S.Values>
                                 

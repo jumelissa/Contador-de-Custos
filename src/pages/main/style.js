@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { Form } from 'react-bootstrap';
-import { AiFillPlusCircle } from 'react-icons/ai';
+import { AiFillPlusCircle, AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineLogout } from 'react-icons/ai';
 
 export const Containermain = styled.div`
-    width: 100%;
+    width: 100vw;
     height: 100%;
     margin: 0;
+    overflow: hidden;
 
         img {
             width: 130px;
@@ -15,6 +16,8 @@ export const Containermain = styled.div`
 
         section {
             display: flex;
+            margin: 0 !important;
+            padding: 0 !important;
 
         }
 
@@ -23,6 +26,7 @@ export const Containermain = styled.div`
             height : 100vh;
             background: #2C3668;
             margin-right: 2%;
+            
         }
 
         main {
@@ -42,6 +46,26 @@ export const Containermain = styled.div`
             margin-bottom: 3vh;
 
         }
+
+        header {
+            width: 100%;
+            position: relative;
+            display: flex;
+        }
+`;
+
+export const PhotoUser = styled.img`
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+    position: absolute;
+    right: 20px;
+`;
+
+export const welcomeUser = styled.div`
+    position: absolute;
+    right: 100px;
+    margin-top: 20px;
 `;
 
 export const Line = styled.div`
@@ -63,11 +87,14 @@ export const Dashboard = styled.div`
         margin-bottom: 0;
     }
 
-    button {
-        border: none;
-        color: #2C3668;
-        cursor: pointer;
-    }
+`;
+
+export const IconLogout = styled(AiOutlineLogout)`
+    cursor: pointer;
+    color: #3A478D;
+    position: absolute;
+    right: 8px;
+    margin-top: 40px;
 `;
 
 export const Values = styled.div`
@@ -86,8 +113,23 @@ export const Values = styled.div`
         top: 0;
         width: 17px;
         height: 15px;
-    }
+    } 
 
+    div {
+        display: flex;
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 10px;
+        font-size: 13px;
+        color: ${props => props.color};
+    }
+    
+
+`;
+
+export const Currency = styled.p`
+     color: ${props => props.color};
 `;
 
 export const Value = styled.p`
@@ -97,13 +139,22 @@ export const Value = styled.p`
 `;
 
 
-
 export const IconOpenModal = styled(AiFillPlusCircle)`
         cursor: pointer;
         color: #3A478D;
         font-size: 30px;
         margin-top: 3vh;
 `;
+
+export const IconArrowUp = styled(AiOutlineArrowUp)`
+    font-size: 10px;
+
+`;
+
+export const IconArrowDown = styled(AiOutlineArrowDown)`
+     font-size: 10px;
+`;
+
 
 
 
