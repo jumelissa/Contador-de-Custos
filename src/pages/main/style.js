@@ -3,8 +3,8 @@ import { Form } from 'react-bootstrap';
 import { AiFillPlusCircle, AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineLogout } from 'react-icons/ai';
 
 export const Containermain = styled.div`
-    width: 100vw;
-    height: 100%;
+    width: 100%;
+    height: 100vh;
     margin: 0;
     overflow: hidden;
 
@@ -32,6 +32,7 @@ export const Containermain = styled.div`
         main {
             width: 80%;
             height: 100vh;
+            padding-right: 30px;
             
         }
 
@@ -98,13 +99,14 @@ export const IconLogout = styled(AiOutlineLogout)`
 `;
 
 export const Values = styled.div`
-    width: 15vw;
+    width: 18vw;
     height: 13vh;
     position: relative;
     border: ${props => props.border};
     padding: 10px;
     border-radius: 10px;
     color: #979797;
+    
 
 
     img {
@@ -143,7 +145,8 @@ export const IconOpenModal = styled(AiFillPlusCircle)`
         cursor: pointer;
         color: #3A478D;
         font-size: 30px;
-        margin-top: 3vh;
+        margin-top: 4vh;
+        margin-left: 40px;
 `;
 
 export const IconArrowUp = styled(AiOutlineArrowUp)`

@@ -6,6 +6,11 @@ import { Row } from 'react-bootstrap';
 
 export const ContainerList = styled.div`
     margin-top: 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 50vh;
+
+
 `;
 
 export const Title = styled.h6`
@@ -34,18 +39,21 @@ export const IconEdit = styled(FiEdit2)`
     margin: 16px;
     color: #3A478D;
     cursor: pointer;
+    /* margin-right: 40px; */
 
 `;
 
 export const IconDelete = styled(RiDeleteBin6Line)`
       color: #3A478D;
       cursor: pointer;
+      
      
 `;
 
 export const RowColor = styled(Row)`
     background-color: ${props => (props.backgroundLine ? "white" : "#E2E6EA")};
     padding-top: 20px;
+  
 `;
 
 

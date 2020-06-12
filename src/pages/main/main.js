@@ -8,6 +8,7 @@ import ModalExpenses from "../../components/modal/modal";
 import { useHistory } from 'react-router-dom';
 import Api from '../../services/api';
 import Lista from '../../components/lista/lista';
+import body from '../../style';
 
 
 
@@ -22,6 +23,7 @@ export default function Main() {
     const [recebidos, setRecebidos] = useState("");
     const [balance, setBalance] = useState("");
     const [modalData, setModalData] = useState({});
+    const [balanceIcon, setBalanceIcon] = useState(0);
     
 
     const handleClose = () => setShow(false);
@@ -49,6 +51,7 @@ export default function Main() {
             setSpending(maskPrice(debito));
             setRecebidos(maskPrice(credito));
             setAppetizer(e.data.length);
+            setBalanceIcon(credito - debito);
         })
      }, []);
 
@@ -77,7 +80,7 @@ function maskPrice(valor) {
 
 
     return(
-    
+    <body >
         <S.Containermain>
                 <header>
                     <img src={ image } />
@@ -99,7 +102,7 @@ function maskPrice(valor) {
                                 <Col xs={2}>
                             <Form.Group as={Col} controlId="formGridState">
                             <Form.Control as="select" value="Choose...">
-                            <option>Data</option>
+                            <option>Mês</option>
                             <option>...</option>
                              </Form.Control>
                             </Form.Group>
@@ -133,11 +136,29 @@ function maskPrice(valor) {
                            <Col xs={3}>
                            <S.Values border="1px solid #2612AF">
                                     <h5>Saldo</h5>
-                                    <div>
-                                    <S.Currency color="#0DC380">R$</S.Currency>
-                                    <S.IconArrowUp color="#0DC380"/>
-                                    </div>
-                                    <S.Value color="#2612AF">{balance}</S.Value>
+                                    
+                                        {balanceIcon >= 0 && (
+                                            <>
+                                             <div>
+                                                  <S.Currency color="#0DC380">R$</S.Currency>
+                                                 <S.IconArrowUp color="#0DC380"/>
+                                             </div>
+                                             <S.Value color="#2612AF">{balance}</S.Value>
+                                             </>
+                                        )}
+                                        
+                                        {balanceIcon < 0 && (
+                                            <>
+                                             <div>
+                                                  <S.Currency color="#DC0F0F">R$</S.Currency>
+                                                  <S.IconArrowDown color="#DC0F0F"/>
+                                             </div>
+                                             <S.Value color="#DC0F0F">-{balance}</S.Value>
+                                             </>
+                                        )}
+                                   
+                                    
+                                    
                                 </S.Values>
                                 
                            </Col>
@@ -170,6 +191,7 @@ function maskPrice(valor) {
               <ModalExpenses show={show} onHide={handleClose} data={modalData} />
               
         </S.Containermain>
+        </body>
         
     )
 }
