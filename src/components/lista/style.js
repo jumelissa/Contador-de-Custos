@@ -25,6 +25,9 @@ export const Line = styled.div`
     background: #3A478D;
 `;
 
+
+
+
 export const Items = styled.p`
     color: #3A478D;
 `;
@@ -39,8 +42,7 @@ export const IconEdit = styled(FiEdit2)`
     margin: 16px;
     color: #3A478D;
     cursor: pointer;
-    /* margin-right: 40px; */
-
+   
 `;
 
 export const IconDelete = styled(RiDeleteBin6Line)`

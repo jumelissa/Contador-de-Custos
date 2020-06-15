@@ -3,12 +3,14 @@ import image from '../../assets/image/Grupo 10473.png';
 import photouser from '../../assets/image/photouser.jpeg';
 import person from '../../assets/image/ic_people_24px@2x.png';
 import * as S from "./style";
-import { Col, Row, Form } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import ModalExpenses from "../../components/modal/modal";
 import { useHistory } from 'react-router-dom';
 import Api from '../../services/api';
 import Lista from '../../components/lista/lista';
 import body from '../../style';
+
+
 
 
 
@@ -24,6 +26,7 @@ export default function Main() {
     const [balance, setBalance] = useState("");
     const [modalData, setModalData] = useState({});
     const [balanceIcon, setBalanceIcon] = useState(0);
+    const [day] = useState(new Date());
     
 
     const handleClose = () => setShow(false);
@@ -63,6 +66,11 @@ export default function Main() {
      }
 
 
+function handleDate() {
+    console.log(`${day.getMonth()}-${day.getDate()}-${day.getFullYear()}`);
+}
+
+
     
 function signOut() {
         sessionStorage.clear()
@@ -100,12 +108,7 @@ function maskPrice(valor) {
                         
                             <Row>
                                 <Col xs={2}>
-                            <Form.Group as={Col} controlId="formGridState">
-                            <Form.Control as="select" value="Choose...">
-                            <option>Mês</option>
-                            <option>...</option>
-                             </Form.Control>
-                            </Form.Group>
+                            <input type="date" value={`0${day.getMonth()+1}-${day.getDate()}-${day.getFullYear()}`} onChange={handleDate} />
                                 </Col>
                             </Row>
                     
