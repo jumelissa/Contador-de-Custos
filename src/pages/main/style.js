@@ -154,6 +154,12 @@ export const IconArrowUp = styled(AiOutlineArrowUp)`
 
 `;
 
+export const noRegistry = styled.h5`
+    text-align: center;
+    color: #3A478D;
+    padding-top: 100px;
+`;
+
 export const IconArrowDown = styled(AiOutlineArrowDown)`
      font-size: 10px;
 `;

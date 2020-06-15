@@ -3,12 +3,14 @@ import image from '../../assets/image/Grupo 10473.png';
 import photouser from '../../assets/image/photouser.jpeg';
 import person from '../../assets/image/ic_people_24px@2x.png';
 import * as S from "./style";
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, FormControl, FormGroup, Form } from 'react-bootstrap';
 import ModalExpenses from "../../components/modal/modal";
 import { useHistory } from 'react-router-dom';
 import Api from '../../services/api';
 import Lista from '../../components/lista/lista';
 import body from '../../style';
+import moment from 'moment';
+
 
 
 
@@ -26,7 +28,9 @@ export default function Main() {
     const [balance, setBalance] = useState("");
     const [modalData, setModalData] = useState({});
     const [balanceIcon, setBalanceIcon] = useState(0);
-    const [day] = useState(new Date());
+    const [day, setDay] = useState(moment().format('YYYY-MM-DD'));
+    const [itemsFilter, setItemsFilter] = useState([]);
+    const [items, setItems] = useState([]);
     
 
     const handleClose = () => setShow(false);
@@ -56,6 +60,12 @@ export default function Main() {
             setAppetizer(e.data.length);
             setBalanceIcon(credito - debito);
         })
+
+        Api.get(`/billing`).then((data) => {
+            setItems(data.data);
+            setItemsFilter(data.data);
+        });
+
      }, []);
 
      async function edition(id) {
@@ -66,8 +76,16 @@ export default function Main() {
      }
 
 
-function handleDate() {
-    console.log(`${day.getMonth()}-${day.getDate()}-${day.getFullYear()}`);
+function handleDate(e) {
+   setDay(e.target.value);
+  let r = [];
+  const dayArray = e.target.value.split("-");
+  items.map((i) => {
+    if (i.date === `${dayArray[2]}/${dayArray[1]}/${dayArray[0]}`) {
+        r.push(i);
+    }
+  })
+    setItemsFilter(r);
 }
 
 
@@ -108,7 +126,7 @@ function maskPrice(valor) {
                         
                             <Row>
                                 <Col xs={2}>
-                            <input type="date" value={`0${day.getMonth()+1}-${day.getDate()}-${day.getFullYear()}`} onChange={handleDate} />
+                            <input type="date" value={day} onChange={handleDate} />
                                 </Col>
                             </Row>
                     
@@ -183,9 +201,13 @@ function maskPrice(valor) {
                            <S.IconOpenModal onClick={handleShow}/>
                            </Col>
                            <Col xs={12}>
-                               
-                            <Lista handleShow={handleShow} edition={edition} />
-    
+                               { itemsFilter.length > 0 &&
+                            <Lista handleShow={handleShow} edition={edition} items={itemsFilter}/>
+                                }
+
+                            { itemsFilter.length === 0 &&
+                                <S.noRegistry>Não existe registros para este dia</S.noRegistry>
+                                }
                            </Col>
                        </Row>
                    </main>

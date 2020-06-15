@@ -5,18 +5,13 @@ import Api from '../../services/api';
 
 
 export default function Lista(props) {
-    const [items, setItems] = useState([]);
-   
+    
    
     useEffect( () => {
         
-    Api.get(`/billing`).then((data) => {
-        setItems(data.data);
-    });
+    
      }, []);
 
-
-     
 
      function maskPrice(valor) {
         let newValue = `${parseFloat(valor).toFixed(2)}`
@@ -54,7 +49,7 @@ export default function Lista(props) {
                 <Col xs={1}></Col>
             </Row>
             <Line />
-            { items.length > 0 && (items.map((e,i) => {
+            { props.items.length > 0 && (props.items.map((e,i) => {
                 return (
                     <RowColor xs={1} backgroundLine={i % 2 === 0}>
                     <Col  xs={2}>

@@ -54,7 +54,7 @@ export const IconDelete = styled(RiDeleteBin6Line)`
 
 export const RowColor = styled(Row)`
     background-color: ${props => (props.backgroundLine ? "white" : "#E2E6EA")};
-    padding-top: 20px;
+    /* padding-top: 20px; */
   
 `;
 
