@@ -126,7 +126,7 @@ function maskPrice(valor) {
                         
                             <Row>
                                 <Col xs={2}>
-                            <input type="date" value={day} onChange={handleDate} />
+                            <S.DatePicker type="date" value={day} onChange={handleDate} />
                                 </Col>
                             </Row>
                     

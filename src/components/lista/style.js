@@ -6,7 +6,7 @@ import { Row } from 'react-bootstrap';
 
 export const ContainerList = styled.div`
     margin-top: 15px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     height: 50vh;
 
@@ -17,6 +17,8 @@ export const Title = styled.h6`
     color: #3A478D;
     font-size: 17px;
     font-weight: bold;
+    margin-left: 10px;
+    
 `;
 
 export const Line = styled.div`
@@ -30,12 +32,15 @@ export const Line = styled.div`
 
 export const Items = styled.p`
     color: #3A478D;
+    margin-left: 10px;
+    
 `;
 
 
 export const ItemValue = styled.p`
     color: ${props => (props.credit ? "#0DC380" : "#DC0F0F")};
-
+    margin-left: 10px;
+    
 `;
 
 export const IconEdit = styled(FiEdit2)`

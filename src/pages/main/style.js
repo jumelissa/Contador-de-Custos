@@ -160,6 +160,23 @@ export const noRegistry = styled.h5`
     padding-top: 100px;
 `;
 
+export const DatePicker = styled.input`
+     border: 1px solid #ced4da;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    resize: none;
+    margin-bottom: 20px;
+    color: gray;
+
+    :focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+`;
+
 export const IconArrowDown = styled(AiOutlineArrowDown)`
      font-size: 10px;
 `;

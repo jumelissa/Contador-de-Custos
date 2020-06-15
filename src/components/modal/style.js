@@ -7,8 +7,6 @@ export const ContainerModal = styled(Modal)`
        
         .modal-content{
             margin: 0 auto !important;
-            /* width: 50vw !important; */
-            /* height: 60vh !important; */
             border-radius: 10px;
             
         }
@@ -49,6 +47,7 @@ export const StyledInputSelect = styled(Form.Control)`
     padding: .375rem .75rem;
     border-radius: .25rem;
     color: gray;
+    
             
         :focus {
             color: #495057;
@@ -68,6 +67,12 @@ export const StyledInputCategory = styled.input`
     margin-bottom: 20px;
     padding: .375rem .75rem;
     border-radius: .25rem;
+    
+    select {
+        -webkit-appearance: none; 
+        appearance: none; 
+        -moz-appearance: none;
+    }
     
 
     :focus {
