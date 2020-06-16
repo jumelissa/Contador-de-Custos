@@ -3,19 +3,13 @@ import image from '../../assets/image/Grupo 10473.png';
 import photouser from '../../assets/image/photouser.jpeg';
 import person from '../../assets/image/ic_people_24px@2x.png';
 import * as S from "./style";
-import { Col, Row, FormControl, FormGroup, Form } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import ModalExpenses from "../../components/modal/modal";
 import { useHistory } from 'react-router-dom';
 import Api from '../../services/api';
 import Lista from '../../components/lista/lista';
 import body from '../../style';
 import moment from 'moment';
-
-
-
-
-
-
 
 
 
@@ -31,6 +25,8 @@ export default function Main() {
     const [day, setDay] = useState(moment().format('YYYY-MM-DD'));
     const [itemsFilter, setItemsFilter] = useState([]);
     const [items, setItems] = useState([]);
+    const [month, setMonth] = useState("");
+    const [year, setYear] = useState("");
     
 
     const handleClose = () => setShow(false);
@@ -75,21 +71,72 @@ export default function Main() {
         
      }
 
+    //  function handleDate(e) {
+    //     setDay(e.target.value);
+    //    let r = [];
+    //    const dayArray = e.target.value.split("-");
+    //    items.map((i) => {
+    //      if (i.date === `${dayArray[2]}/${dayArray[1]}/${dayArray[0]}`) {
+    //          r.push(i);
+    //      }
+    //    })
+    //      setItemsFilter(r);
+    //  }
+
+
+
+
+// function handleYear(e) {
+//     setYear(e.target.value);
+//     if(e.target.value !== "" && month !== "") {
+//         let r = [];
+        
+//         items.map((i) => {
+//         let date = i.date.split("/")
+//         if (`/${date[1]}/${date[2]}` === `/${month}/${e.target.value}`) {
+//         r.push(i);
+//     }
+//   })
+//     setItemsFilter(r);
+//     }
+// }
+
+
+
+
+// function handleMonth(e) {
+//     setMonth(e.target.value);
+//     if(year !== null && e.target.value !== null) {
+//         let r = [];
+        
+//         items.map((i) => {
+//         let date = i.date.split("/")
+//         if (`/${date[1]}/${date[2]}` === `/${e.target.value}/${year}`) {
+//         r.push(i);
+//     }
+//   })
+//     setItemsFilter(r);
+//     }
+// }
+
+
+
 
 function handleDate(e) {
-   setDay(e.target.value);
-  let r = [];
-  const dayArray = e.target.value.split("-");
-  items.map((i) => {
-    if (i.date === `${dayArray[2]}/${dayArray[1]}/${dayArray[0]}`) {
-        r.push(i);
-    }
-  })
-    setItemsFilter(r);
-}
-
-
+    setDay(e.target.value);
+   let r = [];
+   const dayArray = e.target.value.split("-");
+   items.map((i) => {
+    let date = i.date.split("/")
+     if (`/${date[1]}/${date[2]}` === `/${dayArray[1]}/${dayArray[0]}`) {
+         r.push(i);
+     }
+   })
+     setItemsFilter(r);
+ }
     
+
+
 function signOut() {
         sessionStorage.clear()
         return history.push("/");
@@ -128,6 +175,27 @@ function maskPrice(valor) {
                                 <Col xs={2}>
                             <S.DatePicker type="date" value={day} onChange={handleDate} />
                                 </Col>
+                                {/* <Col xs={2}>
+                                    <Form.Control type="number" min="1970" max="2050" onChange={handleYear}/>
+                                </Col>
+                                <Col xs={2}>
+                                <Form.Group controlId="exampleForm.ControlSelect" onChange={handleMonth}>
+                                    <Form.Control as="select">
+                                        <option value={"01"}>Janeiro</option>
+                                        <option value={"02"}>Fevereiro</option>
+                                        <option value={"03"}>Março</option>
+                                        <option value={"04"}>Abril</option>
+                                        <option value={"05"}>Maio</option>
+                                        <option value={"06"}>Junho</option>
+                                        <option value={"07"}>Julho</option>
+                                        <option value={"08"}>Agosto</option>
+                                        <option value={"09"}>Setembro</option>
+                                        <option value={"10"}>Outubro</option>
+                                        <option value={"11"}>Novembro</option>
+                                        <option value={"12"}>Dezembro</option>
+                                    </Form.Control>
+                                </Form.Group>
+                                </Col> */}
                             </Row>
                     
                        
@@ -206,7 +274,7 @@ function maskPrice(valor) {
                                 }
 
                             { itemsFilter.length === 0 &&
-                                <S.noRegistry>Não existe registros para este dia</S.noRegistry>
+                                <S.noRegistry>Não existe registros para este mês</S.noRegistry>
                                 }
                            </Col>
                        </Row>
