@@ -23,6 +23,8 @@ export default function Login() {
    const [checkCpf, setCheckCpf] = useState(false);
    const [errorCpf, setErrorCpf] = useState("");
    const history = useHistory();
+   const [remember, setRemember] = useState(false);
+   const [existingEmail, setExistingEmail] = useState("");
 
    
 
@@ -31,6 +33,7 @@ export default function Login() {
    }
 
    async function toggleLogin() {
+      console.log("entrei")
       let cpfTratament = "";
       for (let i = 0; i < cpf.length; i++) {
            if (cpf[i] !== "." && cpf[i] !== "-") {
@@ -42,12 +45,19 @@ export default function Login() {
          if (rg[i] !== "." ) {
           rgTratament = rgTratament + rg[i];
          }
-    } let res = await Api.get(`/users`);
+    } 
+    let res = await Api.get(`/users`);
       let dados_user = {name: name, email: email, cpf: cpfTratament, rg: rgTratament, password: createPassword, id: (res.data.length + 1)};
-      let response = await Api.post(`/users`,dados_user);
-      console.log(response);
-
-      setLogin(true)
+      let user = res.data.findIndex((e) => e.email === dados_user.email);
+      if (user === -1 ) {
+          await Api.post(`/users`,dados_user);
+         setLogin(true);
+         setErrorEmail("");
+      } else {
+         setErrorEmail("Email já existente")
+      }
+      
+      
    }
 
    function validateEmail(email) {
@@ -137,6 +147,8 @@ export default function Login() {
             return history.push("/main");
          } else {
             console.log("Usuário não está logado")
+         }  if(localStorage.getItem('user_email') !== undefined ) {
+            setEmail(localStorage.getItem('user_email'))
          }
       }, []);
 
@@ -154,6 +166,9 @@ export default function Login() {
                   sessionStorage.setItem('users_email', email)
                   sessionStorage.setItem('id', id)
                   sessionStorage.setItem(`user_name`, name)
+                  if(remember) {
+                     localStorage.setItem('user_email', email);
+                  }
 
                   console.log(response);
                   return history.push("/main");
@@ -191,7 +206,7 @@ export default function Login() {
                       </Row>
 
                       <Row>
-                        <S.StyledChek type="radio" label="lembrar-me" name="formHorizontalRadios" id="formHorizontalRadios3"/>
+                        <S.StyledChek type="radio" label="lembrar-me" name="formHorizontalRadios" id="formHorizontalRadios3" onChange={() => setRemember(!remember)}/>
                         <span>Recuperar Senha</span>
                       </Row>
 

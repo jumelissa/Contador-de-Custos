@@ -25,8 +25,10 @@ export default function Main() {
     const [day, setDay] = useState(moment().format('YYYY-MM-DD'));
     const [itemsFilter, setItemsFilter] = useState([]);
     const [items, setItems] = useState([]);
-    const [month, setMonth] = useState("");
-    const [year, setYear] = useState("");
+    // const [month, setMonth] = useState("");
+    // const [year, setYear] = useState("");
+
+    const callList = async () => await Api.get(`/billing`).then((e) => {setItems(e.data); setItemsFilter(e.data)});
     
 
     const handleClose = () => setShow(false);
@@ -270,7 +272,7 @@ function maskPrice(valor) {
                            </Col>
                            <Col xs={12}>
                                { itemsFilter.length > 0 &&
-                            <Lista handleShow={handleShow} edition={edition} items={itemsFilter}/>
+                            <Lista handleShow={handleShow} edition={edition} items={itemsFilter} callList={callList}/>
                                 }
 
                             { itemsFilter.length === 0 &&
@@ -281,7 +283,7 @@ function maskPrice(valor) {
                    </main>
                </section>
               
-              <ModalExpenses show={show} onHide={handleClose} data={modalData} />
+              <ModalExpenses show={show} onHide={handleClose} data={modalData} callList={callList}/>
               
         </S.Containermain>
         </body>

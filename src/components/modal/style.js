@@ -129,3 +129,21 @@ export const StyledInputTextarea = styled(Form.Control)`
 export const InputCategoryButton = styled.div`
     position: relative;
 `;
+
+export const InputDate = styled.input`
+    width: 100%;
+    height: 50px;
+    border: 1px solid #ced4da;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    color: gray;
+
+        :focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+        
+`;

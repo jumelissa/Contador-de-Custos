@@ -24,7 +24,7 @@ export default function Lista(props) {
 
     async function deleteBilling(id) {
           await Api.delete(`/billing/${id}`);
-        console.log(id);
+            props.callList();
     }
     
 

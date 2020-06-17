@@ -9,6 +9,7 @@ export const ContainerList = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
     height: 50vh;
+   
 
 
 `;
@@ -59,8 +60,8 @@ export const IconDelete = styled(RiDeleteBin6Line)`
 
 export const RowColor = styled(Row)`
     background-color: ${props => (props.backgroundLine ? "white" : "#E2E6EA")};
-    /* padding-top: 20px; */
-  
+    
+
 `;
 
 

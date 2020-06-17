@@ -34,6 +34,7 @@ export const Containermain = styled.div`
             height: 100vh;
             padding-right: 30px;
             
+            
         }
 
         h2 {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Col, Row, Form } from 'react-bootstrap'
-import { ContainerModal, Title, StyledButton, StyledInput, StyledInputSelect, IconClose, StyledInputCategory, IconButtonCategory, StyledInputTextarea, InputCategoryButton } from './style';
+import { ContainerModal, Title, StyledButton, StyledInput, StyledInputSelect, IconClose, StyledInputCategory, IconButtonCategory, StyledInputTextarea, InputCategoryButton, InputDate } from './style';
 import Api from '../../services/api';
 
 
@@ -16,6 +16,7 @@ export default function ModalExpenses(props) {
     const [user, setUser] = useState("");
     const [type, setType] = useState("");
     const [date, setDate] = useState("");
+    const [nameButton, setNameButton] = useState("");
    
 
     
@@ -25,7 +26,11 @@ export default function ModalExpenses(props) {
         setAmount(props.data.amount);
         setUser(props.data.user);
         setCategory(props.data.category);
-
+        if(props.data === "") {
+            setNameButton("Cadastrar");
+        } else {
+            setNameButton("Atualizar");
+        }
      }, [props.data]);
 
     
@@ -50,15 +55,7 @@ export default function ModalExpenses(props) {
         console.log(e.target.value);
     }
     
-    function updateDate(valor) {
-        let newValue = valor
-        .replace(/\D/, "")
-        .replace(/(\d{2})(\d{2})(\d{4})/, "$1/$2/$3")
-        .replace(/(\/\d{4})\d+?$/, "$1");
-      setDate(newValue);
-    
-    }
-  
+
     async function editionBilling(id) {
         if(type === "") {
             let edit = {category: category, description: description, amount: amount, date: date, user: user,type: id.type, id: id}
@@ -76,7 +73,7 @@ export default function ModalExpenses(props) {
             await Api.get(`/billing`).then(async (data) => {
                 let register = {type: type, description: description, amount: amount, user: user, date: date,category: category, id: (data.data.length + 1)};
                 await Api.post(`/billing`, register);
-                
+                props.callList();
             });
         } else {
             editionBilling(props.data)
@@ -124,7 +121,7 @@ export default function ModalExpenses(props) {
 
     async function addCategory() {
         let response = await Api.get(`/category`)
-        await Api.post(`/category`, {title: category, id: (response.data.length + 1)});
+        await Api.post(`/category`, {title: category.toLowerCase(), id: (response.data.length + 1)});
         setButtonCategory(false);
     }
 
@@ -170,7 +167,7 @@ export default function ModalExpenses(props) {
                 </Row>
                 <Row>
                     <Col xs={6}>
-                        <StyledInput type="text" value={date} placeholder="data" onChange={(e) => updateDate(e.target.value)} />
+                        <InputDate type="date" />
                     </Col>
                     <Col xs={6}>
                         <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur} value={amount} onChange={updateAmount}/>
@@ -186,7 +183,9 @@ export default function ModalExpenses(props) {
                     <Col xs={9}></Col>
                     <Col xs={3}>
                         <input type="hidden"/>
-                        <StyledButton variant="primary" size="sm" onClick={() => {newRegister(); props.onHide()}}>Cadastrar</StyledButton>{' '}
+                        <StyledButton variant="primary" size="sm" onClick={() => {newRegister(); props.onHide()}}>
+                           {nameButton}
+                        </StyledButton>{' '}
                     </Col>
                 </Row>
                 
