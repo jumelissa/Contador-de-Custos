@@ -59,12 +59,31 @@ export default function Main() {
             setBalanceIcon(credito - debito);
         })
 
-        Api.get(`/billing`).then((data) => {
+         Api.get(`/billing`).then((data) => {
             setItems(data.data);
             setItemsFilter(data.data);
+            InitFilter(data);
         });
 
+
+
      }, []);
+
+     function InitFilter(data) {
+        let r = [];
+        let day = new Date();
+        let month = day.getMonth()+1;
+        if(month < 10 ) {
+            month = "0" + month;
+        }
+        data.data.map((i) => {
+            let date = i.date.split("/")
+             if (`/${date[1]}/${date[2]}` === `/${month}/${day.getFullYear()}`) {
+                 r.push(i);
+             }
+           })
+             setItemsFilter(r);
+     }
 
      async function edition(id) {
         let edit = await Api.get(`/billing?id=${id}`);
@@ -135,6 +154,18 @@ function handleDate(e) {
      }
    })
      setItemsFilter(r);
+
+     let credito = 0;
+     let debito = 0;
+     r.forEach(e => {
+         e.type === "credito" ? credito += parseFloat(e.amount): debito += parseFloat(e.amount);
+     });
+    
+     setBalance(maskPrice(credito - debito));
+     setSpending(maskPrice(debito));
+     setRecebidos(maskPrice(credito));
+     setAppetizer(r.length);
+     setBalanceIcon(credito - debito);
  }
     
 
