@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Col, Row, Form } from 'react-bootstrap'
 import { ContainerModal, Title, StyledButton, StyledInput, StyledInputSelect, IconClose, StyledInputCategory, IconButtonCategory, StyledInputTextarea, InputCategoryButton, InputDate } from './style';
 import Api from '../../services/api';
+import moment from 'moment';
+import { Items } from '../lista/style';
 
 
 
@@ -15,7 +17,7 @@ export default function ModalExpenses(props) {
     const [description, setDescription] = useState("");
     const [user, setUser] = useState("");
     const [type, setType] = useState("");
-    const [date, setDate] = useState("");
+    const [date, setDate] =  useState(moment().format('YYYY-MM-DD'));
     const [nameButton, setNameButton] = useState("");
    
 
@@ -54,6 +56,11 @@ export default function ModalExpenses(props) {
         setUser(e.target.value);
         console.log(e.target.value);
     }
+
+    function registerDate(e) {
+        setDate(e.target.value);
+      
+    }
     
 
     async function editionBilling(id) {
@@ -85,8 +92,7 @@ export default function ModalExpenses(props) {
         } else {
             editionBilling(props.data)
         }
-       
-    
+      
     }
     
 
@@ -174,7 +180,7 @@ export default function ModalExpenses(props) {
                 </Row>
                 <Row>
                     <Col xs={6}>
-                        <InputDate type="date" />
+                        <InputDate type="date" value={date} onChange={registerDate}/>
                     </Col>
                     <Col xs={6}>
                         <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur} value={amount} onChange={updateAmount}/>

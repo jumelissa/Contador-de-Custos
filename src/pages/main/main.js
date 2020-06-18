@@ -46,6 +46,7 @@ export default function Main() {
         } 
 
         Api.get(`/billing`).then((e) => {
+            console.log(e);
             let credito = 0;
             let debito = 0;
             e.data.forEach(e => {
@@ -70,6 +71,8 @@ export default function Main() {
      }, []);
 
      function InitFilter(data) {
+        let credito = 0;
+        let debito = 0;
         let r = [];
         let day = new Date();
         let month = day.getMonth()+1;
@@ -77,13 +80,23 @@ export default function Main() {
             month = "0" + month;
         }
         data.data.map((i) => {
-            let date = i.date.split("/")
-             if (`/${date[1]}/${date[2]}` === `/${month}/${day.getFullYear()}`) {
+            let date = i.date.split("-")
+             if (`-${date[1]}-${date[0]}` === `-${month}-${day.getFullYear()}`) {
                  r.push(i);
+                 i.type === "credito" ? credito += parseFloat(i.amount): debito += parseFloat(i.amount);
              }
            })
+           setBalance(maskPrice(credito - debito));
+            setSpending(maskPrice(debito));
+            setRecebidos(maskPrice(credito));
+            setAppetizer(r.length);
+            setBalanceIcon(credito - debito);
              setItemsFilter(r);
      }
+
+
+
+
 
      async function edition(id) {
         let edit = await Api.get(`/billing?id=${id}`);
@@ -148,8 +161,8 @@ function handleDate(e) {
    let r = [];
    const dayArray = e.target.value.split("-");
    items.map((i) => {
-    let date = i.date.split("/")
-     if (`/${date[1]}/${date[2]}` === `/${dayArray[1]}/${dayArray[0]}`) {
+    let date = i.date.split("-")
+     if (`-${date[1]}-${date[0]}` === `-${dayArray[1]}-${dayArray[0]}`) {
          r.push(i);
      }
    })
@@ -288,7 +301,7 @@ function maskPrice(valor) {
                            <S.Values border="1px solid #F59324">
                                     <h5>Entrada/mês</h5>
                                     <img src={ person } />
-                            <S.Value color="#F59324">{appetizer}</S.Value>
+                            <S.Value color="#F59324">{itemsFilter.length}</S.Value>
                                 </S.Values>
                            </Col>
                        </Row>
@@ -314,7 +327,7 @@ function maskPrice(valor) {
                    </main>
                </section>
               
-              <ModalExpenses show={show} onHide={handleClose} data={modalData} callList={callList}/>
+              <ModalExpenses show={show} onHide={handleClose} data={modalData} callList={callList} InitFilter={InitFilter}/>
               
         </S.Containermain>
         </body>

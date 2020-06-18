@@ -26,6 +26,11 @@ export default function Lista(props) {
           await Api.delete(`/billing/${id}`);
             props.callList();
     }
+
+    function formatDate(date) {
+        let dateArray = date.split("-");
+        return `${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`
+    }
     
 
     return(
@@ -62,7 +67,7 @@ export default function Lista(props) {
                         <ItemValue credit={e.type === "credito" ? true : false }>{e.type === "credito" ? "R$ " : "R$ -"}{maskPrice(e.amount)}</ItemValue>
                     </Col>
                     <Col  xs={2}>
-                        <Items>{e.date}</Items>
+                        <Items>{formatDate(e.date)}</Items>
                     </Col>
                     <Col  xs={2}>
                         <Items>{e.user}</Items>
