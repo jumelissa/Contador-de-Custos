@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ContainerList, Title, Line, Items, ItemValue, IconEdit, IconDelete, RowColor } from './style';
+import React, { useEffect } from 'react';
+import * as S from './style';
 import { Col, Row } from 'react-bootstrap';
 import Api from '../../services/api';
 
@@ -34,49 +34,48 @@ export default function Lista(props) {
     
 
     return(
-        <ContainerList>
+        <S.ContainerList>
             <Row>
                 <Col  xs={2}>
-                    <Title>Tipo</Title>
+                    <S.Title>Tipo</S.Title>
                 </Col>
                 <Col  xs={3}>
-                    <Title>Descrição</Title>
+                    <S.Title>Descrição</S.Title>
                 </Col>
                 <Col  xs={2}>
-                    <Title>Valor</Title>
+                    <S.Title>Valor</S.Title>
                 </Col>
                 <Col  xs={2}>
-                    <Title>Data</Title>
+                    <S.Title>Data</S.Title>
                 </Col>
                 <Col  xs={2}>
-                    <Title>Remetente</Title>
+                    <S.Title>Remetente</S.Title>
                 </Col>
                 <Col xs={1}></Col>
             </Row>
-            <Line />
+            <S.Line />
             { props.items.length > 0 && (props.items.map((e,i) => {
                 return (
-                    <RowColor xs={1} backgroundLine={i % 2 === 0}>
+                    <S.RowColor xs={1} backgroundLine={i % 2 === 0} title="Clique duas vezes para editar" >
                     <Col  xs={2}>
-                        <Items>{e.type}</Items>
+                        <S.Items onDoubleClick={() => {props.handleShow(); props.edition(e.id)}}>{e.type}</S.Items>
                     </Col>
                     <Col  xs={3}>
-                        <Items>{e.description}</Items>
+                        <S.Items onDoubleClick={() => {props.handleShow(); props.edition(e.id)}}>{e.description}</S.Items>
                     </Col>
                     <Col  xs={2}>
-                        <ItemValue credit={e.type === "credito" ? true : false }>{e.type === "credito" ? "R$ " : "R$ -"}{maskPrice(e.amount)}</ItemValue>
+                        <S.ItemValue onDoubleClick={() => {props.handleShow(); props.edition(e.id)}} credit={e.type === "credito" ? true : false }>{e.type === "credito" ? "R$ " : "R$ -"}{maskPrice(e.amount)}</S.ItemValue>
                     </Col>
                     <Col  xs={2}>
-                        <Items>{formatDate(e.date)}</Items>
+                        <S.Items onDoubleClick={() => {props.handleShow(); props.edition(e.id)}}>{formatDate(e.date)}</S.Items>
                     </Col>
                     <Col  xs={2}>
-                        <Items>{e.user}</Items>
+                        <S.Items onDoubleClick={() => {props.handleShow(); props.edition(e.id)}}>{e.user}</S.Items>
                     </Col>
                    <Col xs={1}>
-                        <IconEdit onClick={() => {props.handleShow(); props.edition(e.id)}}/>
-                        <IconDelete onClick={() => {deleteBilling(e.id)}}/>
+                        <S.IconDelete onClick={() => {deleteBilling(e.id)}}/>
                    </Col>
-                </RowColor>
+                </S.RowColor>
                 
                 )
             })
@@ -84,6 +83,6 @@ export default function Lista(props) {
             )}
 
            
-        </ContainerList>
+        </S.ContainerList>
     )
 }

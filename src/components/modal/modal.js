@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Col, Row, Form } from 'react-bootstrap'
-import { ContainerModal, Title, StyledButton, StyledInput, StyledInputSelect, IconClose, StyledInputCategory, IconButtonCategory, StyledInputTextarea, InputCategoryButton, InputDate } from './style';
+import * as S from './style';
 import Api from '../../services/api';
 import moment from 'moment';
-import { Items } from '../lista/style';
+
 
 
 
@@ -28,11 +28,13 @@ export default function ModalExpenses(props) {
         setAmount(props.data.amount);
         setUser(props.data.user);
         setCategory(props.data.category);
+        setDate(props.data.date);
         if(props.data === "") {
             setNameButton("Cadastrar");
         } else {
             setNameButton("Atualizar");
-        }
+        } 
+       
      }, [props.data]);
 
     
@@ -70,7 +72,8 @@ export default function ModalExpenses(props) {
         } else {
             let edit = {category: category, description: description, amount: amount, date: date, user: user,type: type, id: id}
             await Api.put(`/billing/${id.id}`, edit);
-        }
+        } 
+        props.callList();
        
 
 }
@@ -78,14 +81,7 @@ export default function ModalExpenses(props) {
     async function newRegister() {
         if(props.data === "") {
             await Api.get(`/billing`).then(async (data) => {
-                let categoryApi = await Api.get(`/category`);
-                let idCategory = 0;
-                categoryApi.data.forEach((e) => {
-                    if(e.title === category ) {
-                        idCategory = e.id
-                    }
-                });
-                let register = {type: type, description: description, amount: amount, user: user, date: date,category: idCategory, id: (data.data.length + 1)};
+                let register = {type: type, description: description, amount: amount, user: user, date: date,category: category, id: (data.data.length + 1)};
                 await Api.post(`/billing`, register);
                 props.callList();
             });
@@ -142,10 +138,10 @@ export default function ModalExpenses(props) {
 
 
     return(
-        <ContainerModal show={props.show}>
+        <S.ContainerModal show={props.show}>
              <Modal.Header >
-                <Title>Novos Lançamentos</Title>
-                <IconClose onClick={props.onHide}/>
+                <S.Title>Novos Lançamentos</S.Title>
+                <S.IconClose onClick={props.onHide}/>
             </Modal.Header>
 
             <Modal.Body>
@@ -153,58 +149,58 @@ export default function ModalExpenses(props) {
                 <Row>
                 <Col xs={6}>
 
-                <InputCategoryButton>
-                <StyledInputCategory  list="category" placeholder="Nova Categoria" value={category} onChange={searchCategory}/>
+                <S.InputCategoryButton>
+                <S.StyledInputCategory  list="category" placeholder="Nova Categoria" value={category} onChange={searchCategory}/>
                 <datalist id="category">
                     {dateCategory.map((e) => {
                             return <option>{e.title}</option>
                         })}
                     </datalist>
                     {buttonCategory && (
-                            <IconButtonCategory onClick={addCategory}/>
+                            <S.IconButtonCategory onClick={addCategory}/>
                     )}
-                    </InputCategoryButton>
+                    </S.InputCategoryButton>
                 </Col>
                 <Col xs={6}>
-                            <StyledInputSelect as="select" onChange={selectType}>
+                            <S.StyledInputSelect as="select" onChange={selectType}>
                             <option>Tipo</option>
                             <option selected={props.data.type === "credito" ? "selected" : false} value="credito">Crédito</option>
                             <option selected={props.data.type === "debito" ? "selected" : false} value="debito">Débito</option>
-                             </StyledInputSelect>  
+                             </S.StyledInputSelect>  
                 </Col>
                 </Row>
                 <Row>
                     <Col xs={12}>
-                    <StyledInput type="text" placeholder="Nome" value={user} onChange={updateUser} />
+                    <S.StyledInput type="text" placeholder="Nome" value={user} onChange={updateUser} />
                     </Col>
                 </Row>
                 <Row>
                     <Col xs={6}>
-                        <InputDate type="date" value={date} onChange={registerDate}/>
+                        <S.InputDate type="date" value={date} onChange={registerDate}/>
                     </Col>
                     <Col xs={6}>
-                        <StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur} value={amount} onChange={updateAmount}/>
+                        <S.StyledInput type="currency" placeholder="Valor" onFocus={onFocus} onBlur={onBlur} value={amount} onChange={updateAmount}/>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col xs={12}>
-                        <StyledInputTextarea as="textarea" aria-label="With textarea" placeholder="Descrição" value={description} onChange={updateDescription}/>
+                        <S.StyledInputTextarea as="textarea" aria-label="With textarea" placeholder="Descrição" value={description} onChange={updateDescription}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col xs={9}></Col>
                     <Col xs={3}>
                         <input type="hidden"/>
-                        <StyledButton variant="primary" size="sm" onClick={() => {newRegister(); props.onHide()}}>
+                        <S.StyledButton variant="primary" size="sm" onClick={() => {newRegister(); props.onHide()}}>
                            {nameButton}
-                        </StyledButton>{' '}
+                        </S.StyledButton>{' '}
                     </Col>
                 </Row>
                 
             </Form>
             </Modal.Body>
 
-        </ContainerModal>
+        </S.ContainerModal>
     )
 }

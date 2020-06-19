@@ -33,6 +33,7 @@ export const Line = styled.div`
 
 export const Items = styled.p`
     color: #3A478D;
+    margin-top: 10px;
     margin-left: 10px;
     
 `;
@@ -41,19 +42,15 @@ export const Items = styled.p`
 export const ItemValue = styled.p`
     color: ${props => (props.credit ? "#0DC380" : "#DC0F0F")};
     margin-left: 10px;
+    margin-top: 10px;
     
 `;
 
-export const IconEdit = styled(FiEdit2)`
-    margin: 16px;
-    color: #3A478D;
-    cursor: pointer;
-   
-`;
 
 export const IconDelete = styled(RiDeleteBin6Line)`
       color: #3A478D;
       cursor: pointer;
+      margin-top: 10px;
       
      
 `;

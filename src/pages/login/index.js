@@ -24,7 +24,7 @@ export default function Login() {
    const [errorCpf, setErrorCpf] = useState("");
    const history = useHistory();
    const [remember, setRemember] = useState(false);
-   const [existingEmail, setExistingEmail] = useState("");
+   
 
    
 
