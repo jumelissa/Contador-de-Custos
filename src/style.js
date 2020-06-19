@@ -8,5 +8,6 @@ const body = styled.body`
     outline: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
 `
 export default body;
