@@ -81,7 +81,7 @@ export default function ModalExpenses(props) {
     async function newRegister() {
         if(props.data === "") {
             await Api.get(`/billing`).then(async (data) => {
-                let register = {type: type, description: description, amount: amount, user: user, date: date,category: category, id: (data.data.length + 1)};
+                let register = {type: type, description: description, amount: amount, user: user, date: date,category: category, id: (data.data[data.data.length-1].id + 1)};
                 await Api.post(`/billing`, register);
                 props.callList();
             });

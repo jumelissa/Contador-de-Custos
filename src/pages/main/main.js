@@ -28,7 +28,11 @@ export default function Main() {
     // const [month, setMonth] = useState("");
     // const [year, setYear] = useState("");
 
-    const callList = async () => await Api.get(`/billing`).then((e) => {setItems(e.data); setItemsFilter(e.data)});
+    const callList = async () => await Api.get(`/billing`).then((e) => {
+        setItems(e.data); 
+        setItemsFilter(e.data);
+        InitFilter(e);
+    });
     
 
     const handleClose = () => setShow(false);
