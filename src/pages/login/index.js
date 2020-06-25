@@ -113,7 +113,7 @@ export default function Login() {
             sum = 0;
          }
 
-         if(sum === parseInt(cpfValid[cpfValid.length-1])) {
+         if(sum === parseInt(cpfValid[cpfValid.length-1]) && cpfValid !== "000.000.000-00") {
             return true;
          } else {
             return false;

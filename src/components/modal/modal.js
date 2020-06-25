@@ -66,22 +66,25 @@ export default function ModalExpenses(props) {
     
 
     async function editionBilling(id) {
+        let categoryId = await Api.get(`/category`);
+        categoryId = categoryId.data;
         if(type === "") {
-            let edit = {category: category, description: description, amount: amount, date: date, user: user,type: id.type, id: id}
+            let edit = {category: categoryId[categoryId.findIndex((e) => e.title === category)].id, description: description, amount: amount, date: date, user: user,type: id.type, id: id}
             await Api.put(`/billing/${id.id}`, edit);
         } else {
-            let edit = {category: category, description: description, amount: amount, date: date, user: user,type: type, id: id}
+            let edit = {category: categoryId[categoryId.findIndex((e) => e.title === category)].id, description: description, amount: amount, date: date, user: user,type: type, id: id}
             await Api.put(`/billing/${id.id}`, edit);
         } 
         props.callList();
        
-
 }
 
     async function newRegister() {
+        let categoryId = await Api.get(`/category`);
+        categoryId = categoryId.data;
         if(props.data === "") {
             await Api.get(`/billing`).then(async (data) => {
-                let register = {type: type, description: description, amount: amount, user: user, date: date,category: category, id: (data.data[data.data.length-1].id + 1)};
+                let register = {type: type, description: description, amount: amount, user: user, date: date,category: categoryId[categoryId.findIndex((e) => e.title === category)].id, id: (data.data[data.data.length-1].id + 1)};
                 await Api.post(`/billing`, register);
                 props.callList();
             });

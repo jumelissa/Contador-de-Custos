@@ -10,6 +10,8 @@ import Api from '../../services/api';
 import Lista from '../../components/lista/lista';
 import body from '../../style';
 import moment from 'moment';
+import $ from "jquery";
+
 
 
 
@@ -105,6 +107,9 @@ export default function Main() {
      async function edition(id) {
         let edit = await Api.get(`/billing?id=${id}`);
         edit = edit.data[0]
+        let categoryId = await Api.get(`/category`);
+        categoryId = categoryId.data;
+        edit.category = categoryId[categoryId.findIndex((e) => e.id === edit.category)].title;
         await setModalData(edit);
         
      }
@@ -225,6 +230,8 @@ function maskPrice(valor) {
                                 <Col xs={2}>
                             <S.DatePicker type="date" value={day} onChange={handleDate} />
                                 </Col>
+
+
                                 {/* <Col xs={2}>
                                     <Form.Control type="number" min="1970" max="2050" onChange={handleYear}/>
                                 </Col>
